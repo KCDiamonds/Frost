@@ -493,7 +493,7 @@ SC.push({id:'bunt-12',play:'bunt',dir:null,sets:['12'],vkey:'cover',vlabel:'Stan
     '2B':a('C',K.cov1,'Covers first.')
   })});
 SC.push({id:'bunt-12-fake',play:'bunt',dir:null,sets:['12'],vkey:'fake',vlabel:'Wheel play fake (pickoff at second)',title:'Wheel play fake, runners on first and second',
-  src:'Not in the Diamonds Defense playbook. From the baseball strategies document.',
+  src:'Not in the Diamonds Defense playbook. Filled in as a standard play.',
   ball:null,throws:[[P_IN,K.cov2]],
   A:{
     P:a('F',[400,548],'Makes the pickoff throw to second as the shortstop breaks for third.'),
@@ -608,8 +608,8 @@ Object.keys(BLS).forEach(function(k){
   SC.push({id:'al-'+k,play:'align',dir:k,sets:['123'],title:BLS[k].t,src:PB+'4.',ball:null,throws:[],A:BLS[k].A,note:BLS[k].n});
 });
 
-/* ---------- pop flies (from the baseball strategies document, playbook is silent) ---------- */
-var POPSRC='Not in the Diamonds Defense playbook. From the baseball strategies document.';
+/* ---------- pop flies (playbook is silent) ---------- */
+var POPSRC='Not in the Diamonds Defense playbook. Filled in as a standard play.';
 function popC(s,bk){return s==='x'?a('C',K.CH,'Covers home plate.'):a('B',bk[0],bk[1]);}
 ['-','x'].forEach(function(s){
   SC.push({id:'pop-L-'+s,play:'pop',dir:'left',sets:[s],title:'Pop fly to shallow left field',src:POPSRC,
@@ -654,29 +654,29 @@ function popC(s,bk){return s==='x'?a('C',K.CH,'Covers home plate.'):a('B',bk[0],
 });
 
 /* ---------- fly balls with a runner on third, and wild pitches (playbook is silent) ---------- */
-var BSRC='Not in the Diamonds Defense playbook. From the baseball defensive charts, figure ';
-SC.push({id:'fly-C',play:'fly',dir:'center',sets:['3'],title:'Fly ball to center field, fewer than two outs',src:BSRC+'10.',ball:{to:[400,206],arc:150},throws:[],A:{
+var BSRC='Not in the Diamonds Defense playbook. Filled in as a standard play.';
+SC.push({id:'fly-C',play:'fly',dir:'center',sets:['3'],title:'Fly ball to center field, fewer than two outs',src:BSRC,ball:{to:[400,206],arc:150},throws:[],A:{
   P:a('B',K.bkHR,'Backs up home plate.'),C:a('C',K.CH,'Covers home plate.'),
   '1B':a('X',[400,575],'Moves to the cutoff position between second and home plate.'),
   '2B':a('C',K.cov2,'Covers second.'),
   SS:a('X',[362,332],'Moves toward the fly ball and tells the outfielder where to throw.'),
   '3B':a('C',K.cov3,'Covers third.'),
   LF:a('B',[290,262],'Moves toward the fly ball.'),CF:a('F',[400,242],'Fields the ball.'),RF:a('B',[510,262],'Moves toward the fly ball.')}});
-SC.push({id:'fly-L',play:'fly',dir:'left',sets:['3'],title:'Fly ball to left field, fewer than two outs',src:BSRC+'11.',ball:{to:[178,292],arc:150},throws:[],A:{
+SC.push({id:'fly-L',play:'fly',dir:'left',sets:['3'],title:'Fly ball to left field, fewer than two outs',src:BSRC,ball:{to:[178,292],arc:150},throws:[],A:{
   P:a('B',K.bkHR,'Backs up home plate.'),C:a('C',K.CH,'Covers home plate.'),
   '1B':a('C',K.cov1,'Covers first.'),'2B':a('C',K.cov2,'Covers second.'),
   SS:a('C',K.cov3,'Moves toward the left fielder so the ball does not get past, then retreats to third.',[[258,392]]),
   '3B':a('X',[284,492],'Moves to the cutoff position between third and home plate.'),
   LF:a('F',[194,330],'Fields the ball.'),CF:a('B',[285,262],'Backs up the left fielder.'),
   RF:a('B',[480,350],'Moves to a backup position for second in case of an error.')}});
-SC.push({id:'fly-R',play:'fly',dir:'right',sets:['3'],title:'Fly ball to right field, fewer than two outs',src:BSRC+'12.',ball:{to:[620,292],arc:150},throws:[],A:{
+SC.push({id:'fly-R',play:'fly',dir:'right',sets:['3'],title:'Fly ball to right field, fewer than two outs',src:BSRC,ball:{to:[620,292],arc:150},throws:[],A:{
   P:a('B',K.bkHR,'Backs up home plate.'),C:a('C',K.CH,'Covers home plate.'),
   '1B':a('X',[462,590],'Moves to the cutoff position between first and home plate.'),
   '2B':a('X',[535,375],'Moves toward the outfield and tells the fielder where to throw.'),
   SS:a('C',K.cov2,'Covers second.'),'3B':a('C',K.cov3,'Covers third.'),
   LF:a('B',[230,420],'Moves to a backup position for second or third, depending on where the ball is thrown.'),
   CF:a('B',[500,255],'Moves toward the fly ball.'),RF:a('F',[610,328],'Fields the ball.')}});
-SC.push({id:'wild',play:'wild',dir:null,sets:['3','13','123'],title:'Wild pitch',src:BSRC+'20.',ball:{from:[400,548],to:[456,780],arc:0},throws:[],A:{
+SC.push({id:'wild',play:'wild',dir:null,sets:['3','13','123'],title:'Wild pitch',src:BSRC,ball:{from:[400,548],to:[456,780],arc:0},throws:[],A:{
   P:a('C',[400,674],'Covers home plate.'),C:a('F',[414,764],'Retrieves the ball.'),
   '1B':a('B',[452,642],'Backs up home plate.'),'2B':a('C',K.cov2,'Covers second.'),
   SS:a('C',K.cov3,'Covers third.'),'3B':a('B',[348,642],'Backs up home plate.'),
@@ -869,9 +869,10 @@ function renderHeader(){
   $('sTitle').textContent=sc.title;
   $('sRun').textContent=cap(SETLONG[state.set]);
   var others=sc.sets.filter(function(s){return s!==state.set;}).map(function(s){return SETLONG[s];});
-  var capTxt='Source: '+sc.src;
-  if(others.length) capTxt+=' Same plan for '+joinList(others)+'.';
+  var capTxt=(sc.src.indexOf('Diamonds Defense playbook, page')===0)?'':sc.src;
+  if(others.length) capTxt+=(capTxt?' ':'')+'Same plan for '+joinList(others)+'.';
   $('sCap').textContent=capTxt;
+  $('sCap').hidden=!capTxt;
   var n=$('sNote');
   if(sc.note){ n.textContent=sc.note; n.hidden=false; } else { n.hidden=true; n.textContent=''; }
   svg.setAttribute('aria-label','Field diagram. '+sc.title+', '+SETLONG[state.set]+'.');

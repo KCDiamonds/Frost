@@ -177,7 +177,7 @@ h1,h2{font-family:Oswald,"Arial Narrow",Impact,sans-serif;font-weight:600;margin
 
   <section class="card controls" aria-label="Choose a situation">
     <h1>What does the runner do?</h1>
-    <p class="lede">Pick the situation, then watch every runner move. Built for fastpitch, where runners leave on the release. Drawn from three baserunning guides, not a Diamonds playbook yet.</p>
+    <p class="lede">Pick the situation, then watch every runner move. Built for fastpitch, where runners leave on the release. Not a Diamonds playbook yet.</p>
 
     <div class="grp">
       <div class="gl" id="l-play">Situation</div>
@@ -257,7 +257,7 @@ h1,h2{font-family:Oswald,"Arial Narrow",Impact,sans-serif;font-weight:600;margin
     <h2>Runner calls</h2>
     <p class="sub" id="rosterSub">Tap a runner to follow one route.</p>
     <div class="rows" id="rows"></div>
-    <p class="foot">The guides are baseball documents, so lead-off, pickoff and balk advice is left out. Fastpitch runners leave on the release, and the steal and dirt-ball calls are adapted for that. Rows marked Derived were filled in from the force rules. Check everything with Darian.</p>
+    <p class="foot">Lead-off, pickoff and balk advice is left out because fastpitch runners leave on the release, and the steal and dirt-ball calls are adapted for that. Rows marked Derived were filled in from the force rules. Check everything with Darian.</p>
   </section>
 
 </main>
@@ -280,8 +280,8 @@ var CALLS={
   READ:{label:'Read it',css:'--c-read',dash:''},
   HOLD:{label:'Stay or get back',css:'--c-hold',dash:''}
 };
-var SH='Situations to Practice sheet', SW='Swenson manual', BG='Base Running guide';
-var DV='Derived from the sheet and the force rules';
+var SH='', SW='', BG='';
+var DV='Derived from the force rules';
 
 function along(p,q,t){return [Math.round(p[0]+(q[0]-p[0])*t),Math.round(p[1]+(q[1]-p[1])*t)];}
 function nm(b){return b===1?'2nd':b===2?'3rd':'home';}
@@ -302,7 +302,7 @@ var BALLS={
 
 /* ---------- controls model ---------- */
 var MODES=[
-  {id:'play',label:'Ball in play',hint:'The Situations to Practice sheet: what each runner does on each kind of ball.',dl:'Ball in play'},
+  {id:'play',label:'Ball in play',hint:'What each runner does on each kind of ball. Runners leave on the release.',dl:'Ball in play'},
   {id:'hit',label:'Base hit',hint:'Singles to the outfield: round, read, and use your coach.',dl:'Where it goes'},
   {id:'steal',label:'Steal',hint:'Runners leave on the release. Choose whether she has a green light.',dl:'Steal'},
   {id:'dirt',label:'Ball in the dirt',hint:'Read the ball out of the pitcher\u2019s hand, then the catcher.',dl:'The read'},
@@ -417,12 +417,12 @@ function scenario(){
     sub=cap(SETLONG[set])+(s.outs==='2'?', two outs':', fewer than two outs');
     ball={to:B.to,arc:B.arc};
     runners(function(b){return playDecision(b,set,s.outs,s.dir);});
-    if(B.kind==='ground') R.BR={call:'GO',to:[584,516],via:[],delay:0,ext:null,src:BG+' and '+SW,
+    if(B.kind==='ground') R.BR={call:'GO',to:[584,516],via:[],delay:0,ext:null,src:'',
       txt:'Run hard in a straight line. Step on the front of the bag with either foot and run through it. Then break down with choppy steps and look right for an errant throw.'};
     else if(B.kind==='air') R.BR={call:'GO',to:[566,566],via:[],delay:0,ext:null,src:SW,
       txt:'Run hard out of the box with your head up. Stay behind the runner in front of you.'};
     if(set!=='-'&&s.outs!=='2'&&B.kind!=='foul'&&Object.keys(R).some(function(k){return R[k].src===DV;})) {
-      note='Rows marked Derived are not on your Situations to Practice sheet. I filled them in from the force rules and the Swenson manual. Confirm them with Darian.';
+      note='Rows marked Derived were filled in from the force rules, not from a written Diamonds rule. Confirm them with Darian.';
     }
     if(B.kind==='foul') note=(note?note+' ':'')+'Foul fly caught: the batter is out and goes back to the dugout, so there is no batter-runner.';
   } else if(m==='hit'){
@@ -431,7 +431,7 @@ function scenario(){
     title='Base hit to '+side+' field';
     sub=cap(SETLONG[set]);
     ball={to:bl,arc:40};
-    R.BR={call:'READ',to:[500,484],via:ARC_FIRST,delay:0,ext:BASES[2],src:BG+' and '+SW,
+    R.BR={call:'READ',to:[500,484],via:ARC_FIRST,delay:0,ext:BASES[2],src:'',
       txt:'Think two bases. Arc out in foul territory, hit the inside corner of first, and run straight toward second. Go on if the outfielder bobbles it. Use your eyes and your coach.'};
     runners(function(b){
       if(b===1){
@@ -440,7 +440,7 @@ function scenario(){
           :'Run hard to second and look. The ball is in front of you, so the decision to go to third is yours.';
         t+=' Push off the part of second closest to third.';
         if(occ(2)) t+=' Stay behind the runner ahead.';
-        return {call:'READ',txt:t,src:BG+' and '+SW};
+        return {call:'READ',txt:t,src:''};
       }
       if(b===2) return {call:'GO',src:SW,txt:'Run hard and pick up the third base coach early with a scoring mindset. Keep running until the coach stops you. Slide on close plays at the plate.'};
       return {call:'GO',src:SW,txt:'Score. Never slow up until you score.'};
@@ -463,7 +463,7 @@ function scenario(){
     ball={to:tb,arc:(key==='f'?170:(key==='l'?30:0))};
     var g3=geom(3,call);
     R.R3={call:call,txt:txt,src:SW,to:g3.to,via:[],delay:g3.delay,ext:null};
-    note='Built from the third base commands in the Swenson manual. Confirm how Darian wants these called.';
+    note='Confirm how Darian wants these called.';
   } else if(m==='hitrun'){
     var k=s.dir;
     title='Hit and run: '+DIRLABEL[k].toLowerCase();
@@ -475,7 +475,7 @@ function scenario(){
     else if(k==='line'){rc='GO';rt='Keep running on slow liners. You will likely be doubled up if it is caught anyway.';}
     else {rc='HOLD';rt='Fewer than two outs: hit the brakes and retreat to first.';}
     var g1=geom(1,rc);
-    R.R1={call:rc,txt:rt,src:BG+' and '+SW,to:g1.to,via:[],delay:0,ext:null};
+    R.R1={call:rc,txt:rt,src:'',to:g1.to,via:[],delay:0,ext:null};
     R.BR=(k==='ground')
       ?{call:'GO',to:[584,516],via:[],delay:0,ext:null,src:BG,txt:'Run hard to first and run through the bag.'}
       :{call:'GO',to:[566,566],via:[],delay:0,ext:null,src:BG,txt:'Run hard out of the box.'};
@@ -489,10 +489,10 @@ function scenario(){
     var HOLDT='No green light: wait for the steal sign. Leave on the release only when your coach gives it.';
     function put(b,call,txt,src,exText){ var g=geom(b,call); R['R'+b]={call:call,txt:txt,src:src,to:g.to,via:[],delay:0,ext:exText?nextPos(b):g.ext}; }
     if(sd==='second'){
-      if(green) put(1,'GO','Green light: you make the call. Leave on the release and run with your best jump. Stay low out of your first strides. Slide into second, feet first, with your hands up.',SW+' and '+BG);
+      if(green) put(1,'GO','Green light: you make the call. Leave on the release and run with your best jump. Stay low out of your first strides. Slide into second, feet first, with your hands up.','');
       else put(1,'HOLD',HOLDT,RULE);
     } else if(sd==='third'){
-      if(green) put(2,'GO','Green light: you make the call. Leave on the release and get your momentum toward third. Read the pitcher\u2019s rhythm and the middle infielders. Slide into third, feet first, with your hands up.',SW+' and '+BG);
+      if(green) put(2,'GO','Green light: you make the call. Leave on the release and get your momentum toward third. Read the pitcher\u2019s rhythm and the middle infielders. Slide into third, feet first, with your hands up.','');
       else put(2,'HOLD',HOLDT,RULE);
     } else if(sd==='double'){
       if(green){
@@ -500,7 +500,7 @@ function scenario(){
         put(1,'GO','Go at the release and stay on the lead runner so you can see her and the pitcher. Your jump will be later than hers, so work for a good throw.',SW);
       } else {
         put(2,'HOLD','Wait for the double steal sign.',RULE);
-        put(1,'HOLD','Wait for the double steal sign. Your coach can also hold the trailing runner.',RULE+' and '+SW);
+        put(1,'HOLD','Wait for the double steal sign. Your coach can also hold the trailing runner.',RULE);
       }
     } else {
       if(green){
@@ -511,7 +511,7 @@ function scenario(){
         put(3,'HOLD','Stay on the base. Your coach will tell you if the play is on.',RULE);
       }
     }
-    note='Adapted from baseball guides for fastpitch, where runners leave on the release. The green light rule comes from Mo. Confirm the details with Darian.';
+    note='Adapted for fastpitch, where runners leave on the release. The green light rule comes from Mo. Confirm the details with Darian.';
   } else if(m==='dirt'){
     var cl=s.dir;
     title='Ball in the dirt: '+({green:'green',yellow:'yellow',red:'red'}[cl]);
@@ -533,11 +533,11 @@ function scenario(){
     sub='Batter-runner';
     if(q==='infield'){
       ball={to:[296,470],arc:0};
-      R.BR={call:'GO',to:[584,516],via:[],delay:0,ext:null,src:BG+' and '+SW,
+      R.BR={call:'GO',to:[584,516],via:[],delay:0,ext:null,src:'',
         txt:'Run as fast as you can in a straight line. Step on the front of the bag with either foot and run through it. Break down with choppy steps and look right for an errant throw into foul ground. Do not head toward second. Avoid sliding into first.'};
     } else if(q==='single'){
       ball={to:[400,330],arc:40};
-      R.BR={call:'READ',to:[500,484],via:ARC_FIRST,delay:0,ext:BASES[2],src:BG+' and '+SW,
+      R.BR={call:'READ',to:[500,484],via:ARC_FIRST,delay:0,ext:BASES[2],src:'',
         txt:'Think two bases. Arc out in foul territory so you hit the inside of the bag and can run to second in a direct line. Advance if the outfielder bobbles it. Use your eyes and your coach.'};
     } else if(q==='gap'){
       ball={to:[278,242],arc:80};
@@ -690,7 +690,7 @@ function renderHeader(){
   var sc=state.sc;
   $('sTitle').textContent=sc.title;
   $('sRun').textContent=sc.sub;
-  $('sCap').textContent='Sources: '+sc.srcs.join('; ')+'.';
+  var capS=sc.srcs.filter(function(x){return x;}); $('sCap').textContent=capS.length?capS.join('; ')+'.':''; $('sCap').hidden=!capS.length;
   var n=$('sNote');
   if(sc.note){ n.textContent=sc.note; n.hidden=false; } else { n.hidden=true; n.textContent=''; }
   svg.setAttribute('aria-label','Field diagram. '+sc.title+'. '+sc.sub+'.');
@@ -810,7 +810,7 @@ function renderRows(){
     b.type='button'; b.className='row'+(hid?' locked':''); b.setAttribute('data-pos',id);
     b.style.setProperty('--rc',hid?'var(--r-hold)':'var('+CALLS[d.call].css+')');
     b.setAttribute('aria-pressed',String(state.focus===id));
-    b.innerHTML='<span class="badge">'+BADGE[id]+'</span><span><span class="rl">'+(hid?NAME[id]:CALLS[d.call].label)+'</span><span class="rt">'+(hid?'Tap to reveal':d.txt)+'</span>'+(hid?'':'<span class="rs">'+d.src+'</span>')+'</span>';
+    b.innerHTML='<span class="badge">'+BADGE[id]+'</span><span><span class="rl">'+(hid?NAME[id]:CALLS[d.call].label)+'</span><span class="rt">'+(hid?'Tap to reveal':d.txt)+'</span>'+((hid||!d.src)?'':'<span class="rs">'+d.src+'</span>')+'</span>';
     b.addEventListener('click',function(){ onPlayer(id); });
     rows.appendChild(b);
   });
