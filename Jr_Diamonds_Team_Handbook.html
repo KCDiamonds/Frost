@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Jr Diamonds Team Handbook</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Oswald:wght@500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #111459;
+    --cyan: #4FD8EE;
+    --gold: #A8843A;
+    --bg: #f3f5fb;
+    --card: #ffffff;
+    --card-alt: #eaeefb;
+    --text: #181b3d;
+    --muted: #5a5f86;
+    --line: #d9def0;
+    --accent-text: #111459;
+    --gold-text: #8a6a24;
+    --danger: #b3261e;
+    --danger-bg: #fdecea;
+    --shadow: 0 2px 10px rgba(17, 20, 89, 0.08);
+    --display: 'Oswald', 'Arial Narrow', Impact, sans-serif;
+    --body: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+    --mono: 'Space Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+  }
+  :root[data-theme="dark"] {
+    --bg: #080a29;
+    --card: #12154a;
+    --card-alt: #1a1e5c;
+    --text: #e9ecff;
+    --muted: #a3a9d6;
+    --line: #2a2f78;
+    --accent-text: #4FD8EE;
+    --gold-text: #d9b672;
+    --danger: #ff8a80;
+    --danger-bg: #3a1a2e;
+    --shadow: 0 2px 12px rgba(0, 0, 0, 0.45);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; scroll-padding-top: 76px; }
+  body {
+    font-family: var(--body);
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.55;
+    -webkit-text-size-adjust: 100%;
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+
+  /* Header */
+  header.hero {
+    background: linear-gradient(135deg, var(--navy) 0%, #1b1f86 100%);
+    color: #fff;
+    padding: calc(28px + env(safe-area-inset-top, 0px)) 24px 36px;
+    position: relative;
+    overflow: hidden;
+  }
+  header.hero::after {
+    content: "";
+    position: absolute;
+    right: -60px; top: -60px;
+    width: 260px; height: 260px;
+    border: 28px solid rgba(79, 216, 238, 0.14);
+    transform: rotate(45deg);
+  }
+  .hero-inner { max-width: 960px; margin: 0 auto; position: relative; z-index: 1; }
+  .brand { display: flex; align-items: center; gap: 14px; margin-bottom: 18px; }
+  .logo-slot {
+    width: 54px; height: 54px;
+    display: grid; place-items: center;
+    background: var(--cyan);
+    color: var(--navy);
+    font-family: var(--display);
+    font-weight: 700;
+    font-size: 22px;
+    transform: rotate(45deg);
+    border-radius: 6px;
+    flex: none;
+  }
+  .logo-slot span { transform: rotate(-45deg); }
+  .logo-slot img { width: 100%; height: 100%; object-fit: contain; transform: rotate(-45deg); }
+  .brand-name { font-family: var(--display); font-size: 20px; letter-spacing: 0.12em; text-transform: uppercase; }
+  .brand-sub { font-family: var(--mono); font-size: 11px; letter-spacing: 0.14em; color: var(--cyan); text-transform: uppercase; }
+  h1 {
+    font-family: var(--display);
+    font-weight: 700;
+    font-size: clamp(34px, 7vw, 60px);
+    line-height: 1.05;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+  }
+  h1 em { font-style: normal; color: var(--cyan); }
+  .hero p { max-width: 560px; margin-top: 12px; color: #d3d7ff; font-size: 16px; }
+  .toggle {
+    position: absolute; top: calc(16px + env(safe-area-inset-top, 0px)); right: 16px; z-index: 2;
+    background: rgba(255,255,255,0.12);
+    color: #fff;
+    border: 1px solid rgba(255,255,255,0.35);
+    border-radius: 999px;
+    padding: 8px 14px;
+    font-family: var(--mono);
+    font-size: 12px;
+    cursor: pointer;
+    min-height: 40px;
+  }
+  .toggle:hover { background: rgba(255,255,255,0.22); }
+
+  /* Nav */
+  nav.tabs {
+    position: sticky; top: 0; z-index: 10;
+    background: var(--card);
+    border-bottom: 1px solid var(--line);
+    box-shadow: var(--shadow);
+  }
+  nav.tabs ul {
+    list-style: none;
+    display: flex; gap: 8px;
+    max-width: 960px; margin: 0 auto;
+    padding: 10px 16px;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  nav.tabs ul::-webkit-scrollbar { display: none; }
+  nav.tabs a {
+    display: block; white-space: nowrap;
+    padding: 8px 14px;
+    border-radius: 999px;
+    text-decoration: none;
+    font-family: var(--display);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    font-size: 14px;
+    color: var(--accent-text);
+    background: var(--card-alt);
+    border: 1px solid transparent;
+  }
+  nav.tabs a:hover, nav.tabs a:focus-visible { border-color: var(--cyan); outline: none; }
+
+  main { max-width: 960px; margin: 0 auto; padding: 8px 16px 48px; }
+  section { margin-top: 40px; }
+  .eyebrow { font-family: var(--mono); font-size: 12px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--gold-text); }
+  h2 {
+    font-family: var(--display);
+    font-size: clamp(26px, 5vw, 38px);
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    color: var(--accent-text);
+    line-height: 1.1;
+    margin: 4px 0 8px;
+  }
+  h2::after { content: ""; display: block; width: 56px; height: 4px; background: var(--cyan); margin-top: 10px; border-radius: 2px; }
+  .lede { color: var(--muted); max-width: 640px; margin-bottom: 18px; }
+
+  .card {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 20px;
+    box-shadow: var(--shadow);
+  }
+  .grid { display: grid; gap: 14px; }
+  .grid.two { grid-template-columns: repeat(2, 1fr); }
+  .grid.three { grid-template-columns: repeat(3, 1fr); }
+  h3 {
+    font-family: var(--display);
+    font-size: 20px;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--accent-text);
+    margin-bottom: 8px;
+  }
+  .card ul { list-style: none; }
+  .card li { padding: 7px 0 7px 22px; position: relative; border-bottom: 1px dashed var(--line); }
+  .card li:last-child { border-bottom: 0; }
+  .card li::before {
+    content: ""; position: absolute; left: 3px; top: 15px;
+    width: 8px; height: 8px; background: var(--cyan); transform: rotate(45deg);
+  }
+  .card li small { display: block; color: var(--muted); font-size: 13px; }
+  .tag { display: inline-block; font-family: var(--mono); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; padding: 3px 8px; border-radius: 4px; background: var(--navy); color: var(--cyan); margin-bottom: 8px; }
+  :root[data-theme="dark"] .tag { background: var(--cyan); color: var(--navy); }
+
+  .never { border-color: var(--danger); background: var(--danger-bg); }
+  .never h3 { color: var(--danger); }
+  .never li::before { background: var(--danger); }
+
+  .callout {
+    margin-top: 14px;
+    background: var(--navy);
+    color: #fff;
+    border-radius: 14px;
+    padding: 22px;
+    border-left: 8px solid var(--cyan);
+  }
+  .callout .big { font-family: var(--display); font-size: clamp(24px, 5vw, 34px); text-transform: uppercase; letter-spacing: 0.03em; line-height: 1.15; }
+  .callout .big b { color: var(--cyan); font-weight: 700; }
+  .callout p { margin-top: 6px; color: #cfd3ff; }
+  :root[data-theme="dark"] .callout { background: #1a1e5c; }
+
+  /* Punctuality ladder */
+  .ladder { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 14px; }
+  .step { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 14px; text-align: center; box-shadow: var(--shadow); }
+  .step .from { font-family: var(--mono); font-size: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.06em; }
+  .step .to { font-family: var(--display); font-size: 22px; text-transform: uppercase; color: var(--accent-text); }
+  .step.last { border-color: var(--danger); }
+  .step.last .to { color: var(--danger); }
+  .note { margin-top: 10px; font-size: 14px; color: var(--muted); }
+  .note strong { color: var(--text); }
+
+  /* Rule list */
+  .rules { display: grid; gap: 12px; counter-reset: rule; }
+  .rule { display: flex; gap: 14px; align-items: flex-start; background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 14px 16px; box-shadow: var(--shadow); }
+  .rule::before {
+    counter-increment: rule; content: counter(rule);
+    flex: none; width: 34px; height: 34px; display: grid; place-items: center;
+    font-family: var(--display); font-size: 18px; color: var(--navy); background: var(--cyan); border-radius: 8px;
+  }
+  .rule b { font-family: var(--display); font-size: 18px; letter-spacing: 0.03em; text-transform: uppercase; color: var(--accent-text); display: block; line-height: 1.2; }
+  .rule span { color: var(--muted); font-size: 15px; }
+
+  /* Strategy */
+  .mode { border-top: 6px solid var(--cyan); }
+  .mode.gold { border-top-color: var(--gold); }
+  .mode .slogan { font-family: var(--display); font-size: 24px; text-transform: uppercase; color: var(--accent-text); line-height: 1.1; margin-bottom: 10px; }
+  .mode ul li::before { background: var(--gold); }
+
+  .principles { display: grid; gap: 10px; margin-top: 14px; }
+  .principle { background: var(--card-alt); border-left: 5px solid var(--gold); padding: 12px 16px; border-radius: 0 10px 10px 0; font-size: 15px; }
+  .principle b { color: var(--accent-text); }
+
+  .chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
+  .chip { background: var(--card-alt); border: 1px solid var(--line); border-radius: 999px; padding: 6px 14px; font-size: 14px; }
+  .chip b { font-family: var(--display); letter-spacing: 0.04em; text-transform: uppercase; color: var(--accent-text); font-weight: 600; }
+
+  /* Checklist */
+  .check { display: flex; align-items: flex-start; gap: 12px; padding: 12px 4px; border-bottom: 1px dashed var(--line); cursor: pointer; }
+  .check:last-child { border-bottom: 0; }
+  .check input { width: 24px; height: 24px; accent-color: var(--navy); flex: none; margin-top: 2px; cursor: pointer; }
+  :root[data-theme="dark"] .check input { accent-color: var(--cyan); }
+  .check span { flex: 1; }
+  .check small { display: block; color: var(--muted); font-size: 13px; }
+  .check input:checked + span { text-decoration: line-through; opacity: 0.6; }
+  .progress { height: 8px; background: var(--card-alt); border-radius: 999px; overflow: hidden; margin: 6px 0 4px; }
+  .progress > div { height: 100%; width: 0; background: linear-gradient(90deg, var(--cyan), var(--gold)); transition: width 0.25s ease; }
+  .progress-label { font-family: var(--mono); font-size: 12px; color: var(--muted); }
+
+  .pregame { display: flex; align-items: center; gap: 16px; background: var(--navy); color: #fff; border-radius: 14px; padding: 18px 20px; margin-bottom: 14px; }
+  .pregame .time { font-family: var(--display); font-size: 44px; line-height: 1; color: var(--cyan); }
+  .pregame .lbl { font-family: var(--mono); font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: #cfd3ff; }
+  :root[data-theme="dark"] .pregame { background: #1a1e5c; }
+
+  footer { text-align: center; padding: 28px 16px calc(36px + env(safe-area-inset-bottom, 0px)); color: var(--muted); font-size: 13px; }
+  footer b { font-family: var(--display); letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent-text); font-size: 15px; }
+  .internet { text-align: center; font-family: var(--display); text-transform: uppercase; letter-spacing: 0.05em; font-size: 20px; color: var(--accent-text); margin-top: 12px; }
+
+  @media (max-width: 768px) {
+    .grid.three { grid-template-columns: 1fr; }
+    header.hero { padding-left: 18px; padding-right: 18px; }
+  }
+  @media (max-width: 600px) {
+    .grid.two { grid-template-columns: 1fr; }
+    .ladder { grid-template-columns: 1fr; }
+    .toggle { padding: 8px 12px; }
+    .pregame .time { font-size: 38px; }
+    main { padding-left: 12px; padding-right: 12px; }
+  }
+  @media (max-width: 380px) {
+    h1 { font-size: 30px; }
+    .card { padding: 16px; }
+    .brand-name { font-size: 17px; }
+    .rule { padding: 12px; gap: 10px; }
+  }
+  @media print {
+    .toggle, nav.tabs { display: none; }
+    body { background: #fff; color: #000; }
+    .card, .rule, .step { box-shadow: none; break-inside: avoid; }
+    header.hero { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <button class="toggle" id="themeToggle" type="button" aria-label="Toggle dark and light mode">Dark mode</button>
+  <div class="hero-inner">
+    <div class="brand">
+      <!-- To use the real logo: replace the <span> below with <img src="data:image/png;base64,..." alt="Jr Diamonds logo"> -->
+      <div class="logo-slot"><span>JD</span></div>
+      <div>
+        <div class="brand-name">Jr Diamonds</div>
+        <div class="brand-sub">KC Diamonds &middot; 14U</div>
+      </div>
+    </div>
+    <h1>Team <em>Handbook</em></h1>
+    <p>How we act, how we play, and how we show up. For players and parents.</p>
+  </div>
+</header>
+
+<nav class="tabs" aria-label="Sections">
+  <ul>
+    <li><a href="#rules">Team Rules</a></li>
+    <li><a href="#strategy">Gameplay Strategy</a></li>
+    <li><a href="#gameday">Game Day</a></li>
+    <li><a href="#practice">Practice</a></li>
+  </ul>
+</nav>
+
+<main>
+
+  <!-- TEAM RULES -->
+  <section id="rules">
+    <div class="eyebrow">Part 1</div>
+    <h2>Team Rules</h2>
+    <p class="lede">Softball is the sport. These are the standards that make us a team worth being on.</p>
+
+    <div class="grid two">
+      <div class="card">
+        <span class="tag">Rule one</span>
+        <h3>Respect the Game</h3>
+        <ul>
+          <li>Coaches <small>Eye contact, and no interrupting</small></li>
+          <li>Each other <small>Bullying = bye</small></li>
+          <li>Opponents <small>Don't be nasty</small></li>
+          <li>Umpires <small>Let the coach handle it</small></li>
+          <li>Your parents <small>Their time, money, and support</small></li>
+        </ul>
+      </div>
+      <div class="card never">
+        <span class="tag">Not on my field</span>
+        <h3>Never Allowed</h3>
+        <ul>
+          <li>"I'm sorry" or "My bad"</li>
+          <li>Walking between the chalk</li>
+          <li>Throwing, slamming, or dropping equipment</li>
+          <li>Playing with malice</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="card" style="margin-top:14px">
+      <span class="tag">Rule two</span>
+      <h3>Be an Example</h3>
+      <div class="chips">
+        <span class="chip"><b>Effort</b></span>
+        <span class="chip"><b>Attitude</b></span>
+        <span class="chip"><b>Body Language</b></span>
+        <span class="chip"><b>Emotional Regulation</b></span>
+        <span class="chip"><b>Time &amp; Place</b></span>
+        <span class="chip"><b>Accountable, not sorry</b></span>
+      </div>
+      <p class="note" style="margin-top:14px"><strong>Examples live here too:</strong> hustle, setup, equipment, and social media.</p>
+      <p class="note"><strong>Not an example?</strong> Not on my field.</p>
+    </div>
+
+    <div class="callout">
+      <div class="big">The only answer not allowed: <b>"I don't know."</b></div>
+      <p>Be present, be focused, and get to the why.</p>
+    </div>
+
+    <h3 style="margin-top:28px">More Standards</h3>
+    <div class="rules">
+      <div class="rule"><div><b>Clean up</b><span>Leave every space better than you found it.</span></div></div>
+      <div class="rule"><div><b>No dating teammates</b><span>And no love drama at softball.</span></div></div>
+      <div class="rule"><div><b>Be kind to your mind</b><span>Talk to yourself like you would a teammate.</span></div></div>
+      <div class="rule"><div><b>Communicate</b><span>About anything you think the coach should know. Always. And be honest.</span></div></div>
+      <div class="rule"><div><b>The 24 hour rule</b><span>Questions about playing time wait 24 hours. No coaching from the stands, or you can play there too. Put in the work like you want it.</span></div></div>
+      <div class="rule"><div><b>Own your softball journey</b><span>Speak up for yourself. Don't send your parents.</span></div></div>
+      <div class="rule"><div><b>Social media</b><span>If a coach tells you to take it down, take it down.</span></div></div>
+    </div>
+    <div class="internet">The internet is forever</div>
+
+    <h3 style="margin-top:28px">Be Punctual</h3>
+    <div class="ladder">
+      <div class="step"><div class="from">Early</div><div class="to">= On time</div></div>
+      <div class="step"><div class="from">On time</div><div class="to">= Late</div></div>
+      <div class="step last"><div class="from">Late</div><div class="to">= Left</div></div>
+    </div>
+    <p class="note">Running late? <strong>Cleats on, light jog,</strong> but communicate and be safe.</p>
+  </section>
+
+  <!-- STRATEGY -->
+  <section id="strategy">
+    <div class="eyebrow">Part 2</div>
+    <h2>Gameplay Strategy</h2>
+    <p class="lede">Every game type has a job. Knowing the job explains the lineup.</p>
+
+    <div class="grid three">
+      <div class="card mode">
+        <span class="tag">Pool play</span>
+        <div class="slogan">Strategic reps</div>
+        <ul>
+          <li>Bat rotation in Game 1, adjust if needed</li>
+          <li>Rotate defense</li>
+        </ul>
+      </div>
+      <div class="card mode gold">
+        <span class="tag">Bracket play</span>
+        <div class="slogan">Play to win</div>
+        <ul>
+          <li>Bat 9 or 10 with DP/Flex</li>
+          <li>Play the top 3 strongest defenses</li>
+        </ul>
+      </div>
+      <div class="card mode">
+        <span class="tag">Scrimmages</span>
+        <div class="slogan">Reps and R&amp;D</div>
+        <ul>
+          <li>Play 2nd to 3rd position</li>
+          <li>Working game style reps</li>
+        </ul>
+      </div>
+    </div>
+
+    <h3 style="margin-top:28px">How Playing Time Works</h3>
+    <div class="principles">
+      <div class="principle"><b>Coaches evaluate more than a statistic.</b> Prepare for the answer if you ask.</div>
+      <div class="principle"><b>No reps or positions are promised.</b> They are earned in many ways.</div>
+      <div class="principle"><b>Attitude and body language</b> can and will get you pulled faster than mistakes.</div>
+      <div class="principle"><b>Team first.</b> This is a team sport. Strategy over feelings, and the best for the majority, while protecting and celebrating individual successes and achievements.</div>
+      <div class="principle"><b>Guest players play.</b> If we need guest players, they will play. They are not guest sitters.</div>
+    </div>
+
+    <h3 style="margin-top:28px">Dugout Charts</h3>
+    <div class="card">
+      <div class="chips">
+        <span class="chip"><b>Pitch Chart</b> &middot; Defense</span>
+        <span class="chip"><b>Q Sheet</b> &middot; Offense</span>
+        <span class="chip"><b>Win the Inning</b> &middot; Defense</span>
+        <span class="chip"><b>Pitch Counter</b></span>
+      </div>
+      <p class="note" style="margin-top:12px"><strong>Charts are information, not punishment.</strong></p>
+    </div>
+  </section>
+
+  <!-- GAME DAY -->
+  <section id="gameday">
+    <div class="eyebrow">Part 3</div>
+    <h2>Game Day</h2>
+    <p class="lede">Tap each item as you go. Great for the car ride or the dugout.</p>
+
+    <div class="pregame">
+      <div class="time">1:30</div>
+      <div><div class="lbl">Standard pregame</div><div>Be there early, be ready to work.</div></div>
+    </div>
+
+    <div class="grid two">
+      <div class="card">
+        <h3>Set Up</h3>
+        <label class="check"><input type="checkbox" class="gd"><span>Pitchers are warm immediately<small>Every day. Long toss.</small></span></label>
+      </div>
+      <div class="card">
+        <h3>Look for Patterns</h3>
+        <label class="check"><input type="checkbox" class="gd"><span>Defense watch<small>An error plus bad body language, or back to back mental mistakes</small></span></label>
+      </div>
+    </div>
+
+    <div class="card" style="margin-top:14px">
+      <h3>Stay Locked In</h3>
+      <label class="check"><input type="checkbox" class="gd"><span>No walking<small>Hustle on and off the field</small></span></label>
+      <label class="check"><input type="checkbox" class="gd"><span>Spelling cheers<small>Stay loud and involved</small></span></label>
+      <label class="check"><input type="checkbox" class="gd"><span>If sitting: run, play catch, get leads<small>The bench is not a break</small></span></label>
+      <label class="check"><input type="checkbox" class="gd"><span>Charts are info, not punishment</span></label>
+      <label class="check"><input type="checkbox" class="gd"><span>Clean dugout</span></label>
+      <label class="check"><input type="checkbox" class="gd"><span>Chat after, always<small>Win or lose</small></span></label>
+    </div>
+
+    <div style="margin-top:14px">
+      <div class="progress"><div id="gdBar"></div></div>
+      <div class="progress-label" id="gdLabel">0 of 0 complete</div>
+    </div>
+  </section>
+
+  <!-- PRACTICE -->
+  <section id="practice">
+    <div class="eyebrow">Part 4</div>
+    <h2>Practice</h2>
+    <p class="lede">Practice is where game day gets decided.</p>
+
+    <div class="grid two">
+      <div class="card">
+        <span class="tag">Always</span>
+        <h3>Long Warm Up</h3>
+        <ul>
+          <li>Outside: play catch</li>
+          <li>Inside: hitting stretch</li>
+        </ul>
+      </div>
+      <div class="card">
+        <span class="tag">Every rep</span>
+        <h3>You Can Always Go Again</h3>
+        <ul>
+          <li>Just go to the end of the line after 2</li>
+          <li>HUSTLE</li>
+        </ul>
+      </div>
+    </div>
+    <div class="callout">
+      <div class="big">Set up. <b>Clean up.</b></div>
+      <p>Every practice starts and ends with the team.</p>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <b>Jr Diamonds</b><br>
+  KC Diamonds &middot; Coaches Darian Frost &amp; Mo Zahabi<br>
+  thekcdiamonds.com
+</footer>
+
+<script>
+  // Theme toggle (follows system setting by default)
+  (function () {
+    var root = document.documentElement;
+    var btn = document.getElementById('themeToggle');
+    var prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+    function apply(t) {
+      root.setAttribute('data-theme', t);
+      btn.textContent = t === 'dark' ? 'Light mode' : 'Dark mode';
+    }
+    apply(prefersDark ? 'dark' : 'light');
+    btn.addEventListener('click', function () {
+      apply(root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
+    });
+  })();
+
+  // Game day checklist progress
+  (function () {
+    var boxes = document.querySelectorAll('input.gd');
+    var bar = document.getElementById('gdBar');
+    var label = document.getElementById('gdLabel');
+    function update() {
+      var done = 0;
+      boxes.forEach(function (b) { if (b.checked) done++; });
+      bar.style.width = (boxes.length ? (done / boxes.length) * 100 : 0) + '%';
+      label.textContent = done + ' of ' + boxes.length + ' complete';
+    }
+    boxes.forEach(function (b) { b.addEventListener('change', update); });
+    update();
+  })();
+</script>
+</body>
+</html>
