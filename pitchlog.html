@@ -1,0 +1,979 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" content="#111459">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<title>Jr Diamonds Pitch Call Log</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Oswald:wght@500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box}
+:root{
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+  --navy:#111459; --cyan:#4FD8EE; --gold:#A8843A;
+  --bg:#F2F4FA; --surface:#FFFFFF; --surface2:#E8ECF6; --text:#0E1240; --muted:#454B72; --line:#CBD2E8;
+  --head:#111459; --field:#FFFFFF; --focus:#111459;
+  --sel-bg:#111459; --sel-fg:#FFFFFF;
+  --dot-b:#2E7FB8; --dot-s:#A8843A;
+  --shadow:0 1px 2px rgba(17,20,89,.10),0 6px 18px rgba(17,20,89,.07);
+  color-scheme:light;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#080A26; --surface:#12164A; --surface2:#1B2060; --text:#EEF1FF; --muted:#A9B1DC; --line:#2C3478;
+    --head:#0B0E3A; --field:#0B0E3A; --focus:#4FD8EE;
+    --sel-bg:#4FD8EE; --sel-fg:#07123A;
+    --dot-b:#4FD8EE; --dot-s:#D9B25A;
+    --shadow:0 1px 2px rgba(0,0,0,.4),0 6px 18px rgba(0,0,0,.3);
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#080A26; --surface:#12164A; --surface2:#1B2060; --text:#EEF1FF; --muted:#A9B1DC; --line:#2C3478;
+  --head:#0B0E3A; --field:#0B0E3A; --focus:#4FD8EE;
+  --sel-bg:#4FD8EE; --sel-fg:#07123A;
+  --dot-b:#4FD8EE; --dot-s:#D9B25A;
+  --shadow:0 1px 2px rgba(0,0,0,.4),0 6px 18px rgba(0,0,0,.3);
+  color-scheme:dark;
+}
+html{scroll-padding-top:env(safe-area-inset-top,0px);-webkit-text-size-adjust:100%}
+body{
+  margin:0;background:var(--bg);color:var(--text);
+  font:16px/1.4 Inter,system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  padding-bottom:96px;-webkit-tap-highlight-color:transparent;touch-action:manipulation;
+}
+body::before{content:"";position:fixed;inset:0 0 auto 0;height:env(safe-area-inset-top,0px);background:var(--head);z-index:30}
+button{font-family:inherit}
+:focus-visible{outline:3px solid var(--focus);outline-offset:2px}
+h1,h2,h3{margin:0}
+
+/* header */
+.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--head);color:#fff;border-bottom:3px solid var(--gold)}
+.top-in{max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:12px;padding:6px 12px}
+.logo{background:#fff;border-radius:10px;padding:4px 7px;display:flex;flex:0 0 auto}
+.logo img{height:40px;width:auto;display:block}
+.titles{flex:1;min-width:0}
+.titles h1{font:600 24px/1.05 Oswald,"Arial Narrow","Helvetica Neue",Arial,sans-serif;letter-spacing:.02em}
+.titles p{margin:3px 0 0;font-size:13px;color:#CBD2F6;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tot{flex:0 0 auto;text-align:center;line-height:1}
+.tot b{display:block;font:700 22px "Space Mono",ui-monospace,Menlo,monospace}
+.tot span{font-size:11px;color:#CBD2F6}
+.icon-btn{width:44px;height:44px;border-radius:12px;border:1px solid rgba(255,255,255,.28);background:rgba(255,255,255,.08);color:#fff;display:grid;place-items:center;cursor:pointer;flex:0 0 auto}
+.icon-btn:focus-visible{outline-color:var(--cyan)}
+
+main{max-width:1100px;margin:0 auto;padding:10px 12px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow);padding:12px}
+.stack{display:grid;gap:12px;grid-template-columns:minmax(0,1fr)}
+.hint{margin:6px 0 0;font-size:13px;color:var(--muted)}
+.lab{display:block;margin:12px 0 6px;font-weight:600;font-size:14px}
+h2{font:600 20px/1.1 Oswald,"Arial Narrow","Helvetica Neue",Arial,sans-serif;letter-spacing:.02em}
+.sh{margin-bottom:6px}
+
+/* controls */
+.field{width:100%;min-height:48px;border-radius:12px;border:1.5px solid var(--line);background:var(--field);color:var(--text);font:500 16px Inter,system-ui,sans-serif;padding:0 12px}
+.field::placeholder{color:var(--muted);opacity:.85}
+select.field{appearance:auto}
+.area{min-height:220px;padding:10px 12px;font:400 13px/1.45 "Space Mono",ui-monospace,Menlo,monospace;resize:vertical}
+.btn{min-height:48px;padding:0 18px;border-radius:12px;border:1.5px solid var(--sel-bg);background:var(--sel-bg);color:var(--sel-fg);font:600 15px Inter,system-ui,sans-serif;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:8px}
+.btn.ghost{background:transparent;color:var(--text);border-color:var(--line)}
+.btn.warn{background:#B3261E;border-color:#B3261E;color:#fff}
+.btn.small{min-height:44px;padding:0 14px}
+.row{display:flex;gap:10px;margin-top:16px}
+.row .btn{flex:1}
+.row-between{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:10px}
+.seg{display:grid;grid-auto-flow:column;grid-auto-columns:1fr;gap:6px;margin:6px 0 12px}
+.seg button{min-height:48px;border-radius:12px;border:1.5px solid var(--line);background:var(--surface2);color:var(--text);font:600 15px Inter,system-ui,sans-serif;cursor:pointer}
+.seg button[aria-pressed="true"]{background:var(--sel-bg);color:var(--sel-fg);border-color:var(--sel-bg)}
+.lrow{display:flex;align-items:center;gap:8px;margin-top:8px}
+.hbtn{flex:0 0 48px;height:48px;border-radius:12px;border:1.5px solid var(--line);background:var(--surface2);color:var(--text);font:700 16px Oswald,Arial,sans-serif;cursor:pointer;display:grid;place-items:center}
+.sw{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:52px;position:relative;cursor:pointer;border-top:1px solid var(--line)}
+.sw:first-of-type{border-top:0}
+.sw small{display:block;color:var(--muted);font-size:13px}
+.sw input{position:absolute;opacity:0;width:100%;height:100%;left:0;top:0;margin:0;cursor:pointer}
+.sw i{flex:0 0 auto;width:50px;height:30px;border-radius:999px;background:var(--surface2);border:1.5px solid var(--line);position:relative;transition:background .15s}
+.sw i::after{content:"";position:absolute;top:3px;left:3px;width:21px;height:21px;border-radius:50%;background:var(--muted);transition:transform .15s,background .15s}
+.sw input:checked + i{background:var(--sel-bg);border-color:var(--sel-bg)}
+.sw input:checked + i::after{transform:translateX(20px);background:var(--sel-fg)}
+.sw input:focus-visible + i{outline:3px solid var(--focus);outline-offset:2px}
+
+/* call tab */
+.ctx{display:flex;gap:8px;align-items:center;margin-bottom:8px}
+.pchips{display:flex;gap:6px;overflow-x:auto;flex:1;min-width:0;padding:3px;scrollbar-width:none}
+.pchips::-webkit-scrollbar{display:none}
+.pchip{flex:0 0 auto;min-height:44px;padding:0 15px;border-radius:999px;border:1.5px solid var(--line);background:var(--surface);color:var(--text);font:600 14px Inter,system-ui,sans-serif;cursor:pointer;max-width:160px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.pchip[aria-pressed="true"]{background:var(--sel-bg);border-color:var(--sel-bg);color:var(--sel-fg)}
+.inn{display:flex;align-items:center;background:var(--surface);border:1.5px solid var(--line);border-radius:999px;flex:0 0 auto}
+.inn button{width:44px;height:44px;border:0;background:none;color:var(--text);cursor:pointer;border-radius:999px;display:grid;place-items:center;font:700 22px Inter,sans-serif}
+.inn span{min-width:72px;text-align:center;font:600 14px Inter,system-ui,sans-serif}
+
+.layout{display:grid;gap:10px;grid-template-columns:minmax(0,1fr)}
+.stats-cols{display:grid;gap:12px;grid-template-columns:minmax(0,1fr)}
+.col{display:grid;gap:10px;align-content:start;grid-template-columns:minmax(0,1fr)}
+
+.bt{display:flex;align-items:center;gap:10px}
+.bbtn{flex:1;min-width:0;display:flex;align-items:center;gap:12px;text-align:left;background:none;border:0;padding:2px;color:var(--text);cursor:pointer;border-radius:12px;min-height:52px}
+.slot{flex:0 0 auto;width:42px;height:42px;border-radius:50%;background:var(--sel-bg);color:var(--sel-fg);display:grid;place-items:center;font:700 20px Oswald,Arial,sans-serif}
+.slot.sm{width:34px;height:34px;font-size:16px}
+.bmeta{min-width:0;display:block}
+.bname{display:block;font:600 22px/1.1 Oswald,"Arial Narrow",Arial,sans-serif;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.bsub{display:flex;align-items:center;gap:6px;font-size:13px;color:var(--muted);margin-top:3px}
+.cnt{flex:0 0 auto;text-align:right}
+.num{font:700 40px/1 "Space Mono",ui-monospace,Menlo,monospace;letter-spacing:-.03em}
+.dots{display:flex;align-items:center;justify-content:flex-end;gap:5px;margin-top:4px;font:700 11px Inter,sans-serif;color:var(--muted)}
+.dot{width:13px;height:13px;border-radius:50%;border:2px solid var(--muted);display:inline-block}
+.dot.b.on{background:var(--dot-b);border-color:var(--dot-b)}
+.dot.s.on{background:var(--dot-s);border-color:var(--dot-s)}
+.dots span+ .dot{margin-left:0}
+.dots .gap{width:8px}
+.seq{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px;min-height:26px;align-items:center}
+.seq .none{font-size:13px;color:var(--muted)}
+.sc{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line);background:var(--surface2);border-radius:8px;padding:2px 8px 2px 3px;font:600 12.5px Inter,system-ui,sans-serif}
+.sc b{display:inline-grid;place-items:center;min-width:26px;height:22px;border-radius:5px;color:#fff;font:700 12px Inter,sans-serif;background:var(--pc)}
+.sc i{font:400 11px "Space Mono",ui-monospace,monospace;color:var(--muted);font-style:normal}
+.sc.latest{border-color:var(--gold);box-shadow:0 0 0 2px var(--gold)}
+.sdot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-left:5px;background:#8A90B8;opacity:.6}
+.sd-on{background:#4CC785;opacity:1}
+.sd-syncing,.sd-connecting{background:#E3A33A;opacity:1}
+.sd-error{background:#FF8A80;opacity:1}
+.prior{margin-top:8px;font-size:13px;color:var(--muted)}
+.acts{display:grid;grid-template-columns:1.3fr 1fr 1fr 1fr;gap:6px;margin-top:8px}
+.acts button{min-height:42px;border-radius:10px;border:1.5px solid var(--line);background:var(--surface2);color:var(--text);font:600 13px Inter,system-ui,sans-serif;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px;padding:0 6px}
+
+.gh{font:600 13px Inter,system-ui,sans-serif;color:var(--muted);margin:0 0 6px}
+.callgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.cbtn{min-height:62px;border-radius:14px;border:2px solid var(--line);box-shadow:inset 0 6px 0 var(--pc);background:var(--surface);color:var(--text);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;cursor:pointer;padding:4px;position:relative;transition:transform .08s}
+.cbtn .ab{font:700 27px/1 Oswald,"Arial Narrow",Arial,sans-serif;letter-spacing:.03em}
+.cbtn .nm{font:600 12px Inter,system-ui,sans-serif;color:var(--muted)}
+.cbtn .x{position:absolute;top:4px;right:6px;font:700 11px "Space Mono",ui-monospace,monospace;color:var(--muted)}
+.cbtn[aria-pressed="true"]{background:var(--pc);border-color:var(--pc);box-shadow:none;color:#fff;transform:translateY(-2px)}
+.cbtn[aria-pressed="true"] .nm,.cbtn[aria-pressed="true"] .x{color:#fff}
+.cbtn:active{transform:scale(.97)}
+.callgrid.nudge{animation:nudge .45s ease}
+@keyframes nudge{0%,100%{transform:translateX(0)}25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
+
+.locgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
+.lbtn{min-height:38px;border-radius:10px;border:1.5px solid var(--line);background:var(--surface);color:var(--text);font:600 13px Inter,system-ui,sans-serif;cursor:pointer}
+.lbtn[aria-pressed="true"]{background:var(--sel-bg);border-color:var(--sel-bg);color:var(--sel-fg)}
+
+.rgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-bottom:10px}
+.rgrid:last-child{margin-bottom:0}
+.rbtn{min-height:56px;border-radius:12px;border:2px solid var(--line);border-bottom:6px solid var(--rc);background:var(--surface);color:var(--text);font:600 14px/1.15 Inter,system-ui,sans-serif;cursor:pointer;padding:4px 3px}
+.rbtn[data-ready="false"]{opacity:.55}
+.rbtn:active{transform:scale(.97)}
+
+/* log + stats */
+.ab{padding:12px}
+.ab-h{display:flex;align-items:center;gap:10px}
+.ab-h .who{flex:1;min-width:0}
+.ab-h strong{font:600 18px/1.1 Oswald,"Arial Narrow",Arial,sans-serif;letter-spacing:.01em}
+.ab-h small{display:block;color:var(--muted);font-size:13px;margin-top:2px}
+.badge{flex:0 0 auto;border-radius:999px;padding:4px 12px;font:700 13px Inter,sans-serif;border:1.5px solid var(--line);background:var(--surface2)}
+.badge.good{border-color:#1E7A46;color:#1E7A46}
+.badge.bad{border-color:#B3261E;color:#B3261E}
+.badge.mid{border-color:#9A5B00;color:#9A5B00}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]) .badge.good{border-color:#4CC785;color:#4CC785}
+  :root:not([data-theme="light"]) .badge.bad{border-color:#FF8A80;color:#FF8A80}
+  :root:not([data-theme="light"]) .badge.mid{border-color:#E3A33A;color:#E3A33A}
+}
+:root[data-theme="dark"] .badge.good{border-color:#4CC785;color:#4CC785}
+:root[data-theme="dark"] .badge.bad{border-color:#FF8A80;color:#FF8A80}
+:root[data-theme="dark"] .badge.mid{border-color:#E3A33A;color:#E3A33A}
+.empty{text-align:center;padding:36px 16px;color:var(--muted)}
+.empty h2{color:var(--text);margin-bottom:8px}
+.gcard{border-top:1px solid var(--line);padding-top:12px;margin-top:12px}
+.gt{display:flex;justify-content:space-between;align-items:baseline;gap:10px}
+.gt strong{font:600 19px/1.1 Oswald,"Arial Narrow",Arial,sans-serif;letter-spacing:.01em}
+.gt span{color:var(--muted);font-size:13px}
+.gs{font-size:14px;color:var(--muted);margin-top:3px}
+.gcard .btn.ghost[data-action="del-game"]{flex:0 0 52px;padding:0}
+.tiles{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}
+.tile{background:var(--surface2);border-radius:12px;padding:12px}
+.tile b{display:block;font:700 30px/1 Oswald,"Arial Narrow",Arial,sans-serif}
+.tile span{display:block;margin-top:4px;font-size:13px;color:var(--muted)}
+.tscroll{overflow-x:auto;margin:0 -4px}
+table.st{width:100%;border-collapse:collapse;font-size:14px}
+.st th{font:600 12px Inter,system-ui,sans-serif;color:var(--muted);text-align:right;padding:6px 8px;border-bottom:1px solid var(--line);white-space:nowrap}
+.st td{padding:10px 8px;text-align:right;border-bottom:1px solid var(--line);font-variant-numeric:tabular-nums;white-space:nowrap}
+.st th:first-child,.st td:first-child{text-align:left}
+.st tr:last-child td{border-bottom:0}
+.pn{display:inline-flex;align-items:center;gap:8px;font-weight:600}
+.pn i{width:12px;height:12px;border-radius:4px;background:var(--pc);display:inline-block}
+.mix{display:inline-flex;align-items:center;gap:6px;justify-content:flex-end}
+.mixbar{width:48px;height:8px;background:var(--surface2);border-radius:4px;overflow:hidden;display:inline-block}
+.mixbar i{display:block;height:100%;background:var(--pc)}
+.ends{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.ends span{background:var(--surface2);border-radius:999px;padding:6px 12px;font-weight:600;font-size:14px}
+.ends b{font-family:"Space Mono",ui-monospace,monospace;margin-left:4px}
+.fchips{display:flex;gap:6px;overflow-x:auto;padding:3px;margin-bottom:10px;scrollbar-width:none}
+.fchips::-webkit-scrollbar{display:none}
+.bline{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-top:8px;font-size:14px}
+.bcard h3{font:600 18px/1.1 Oswald,"Arial Narrow",Arial,sans-serif;display:flex;align-items:center;gap:10px}
+.bcard h3 small{font:400 13px Inter,sans-serif;color:var(--muted)}
+
+/* nav, toast, sheet */
+nav.bar{position:fixed;left:0;right:0;bottom:0;z-index:20;background:var(--surface);border-top:1px solid var(--line);padding-bottom:env(safe-area-inset-bottom,0px)}
+.bar-in{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:repeat(3,1fr)}
+.tabbtn{background:none;border:0;color:var(--muted);padding:9px 4px 8px;display:flex;flex-direction:column;align-items:center;gap:3px;font:600 12px Inter,system-ui,sans-serif;min-height:58px;cursor:pointer;position:relative}
+.tabbtn[aria-selected="true"]{color:var(--text)}
+.tabbtn[aria-selected="true"]::before{content:"";position:absolute;top:0;left:24%;right:24%;height:4px;background:var(--gold);border-radius:0 0 4px 4px}
+.toast{position:fixed;left:50%;bottom:calc(72px + env(safe-area-inset-bottom,0px));transform:translate(-50%,16px);opacity:0;pointer-events:none;background:var(--navy);color:#fff;border:1px solid rgba(255,255,255,.2);border-radius:12px;padding:10px 14px;font:600 14px Inter,system-ui,sans-serif;display:flex;gap:12px;align-items:center;z-index:40;max-width:92vw;box-shadow:0 8px 24px rgba(0,0,0,.35);transition:opacity .18s,transform .18s}
+.toast.show{opacity:1;transform:translate(-50%,0);pointer-events:auto}
+.toast button{background:none;border:1px solid rgba(255,255,255,.55);color:#fff;border-radius:8px;padding:0 12px;min-height:40px;font:600 13px Inter,sans-serif;cursor:pointer}
+.scrim{position:fixed;inset:0;background:rgba(5,7,30,.6);z-index:50;display:none}
+.scrim.on{display:flex;align-items:flex-end;justify-content:center}
+.sheet{background:var(--surface);color:var(--text);width:100%;max-width:560px;border-radius:20px 20px 0 0;padding:18px 16px calc(18px + env(safe-area-inset-bottom,0px));max-height:90%;overflow:auto;box-shadow:var(--shadow)}
+
+@media (min-width:768px){
+  .layout{grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);align-items:start}
+  .tiles{grid-template-columns:repeat(4,1fr)}
+  .scrim.on{align-items:center}
+  .sheet{border-radius:20px}
+  .cbtn{min-height:96px}
+  .cbtn .ab{font-size:32px}
+  .lbtn{min-height:54px;font-size:15px}
+  .rbtn{min-height:96px;font-size:17px}
+  .rgrid{gap:10px;margin-bottom:16px}
+  .acts button{min-height:50px;font-size:14px}
+  .num{font-size:46px}
+  .stats-cols{grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);align-items:start}
+}
+@media (max-width:600px){
+  .mixbar{display:none}
+  table.st{font-size:13px}
+  .pn{gap:6px}
+  .st th{font-size:11px}
+  .st th,.st td{padding-left:5px;padding-right:5px}
+  .titles h1{font-size:21px}
+  .logo img{height:40px}
+  .num{font-size:38px}
+}
+@media (max-width:380px){
+  .rbtn{font-size:12.5px;min-height:52px}
+  .pchip{padding:0 12px}
+  .cbtn .ab{font-size:26px}
+  .num{font-size:38px}
+  .tot{display:none}
+}
+@media (max-width:339px){
+  .rgrid{grid-template-columns:repeat(2,1fr)}
+}
+@media (prefers-reduced-motion:reduce){
+  *{transition:none!important;animation:none!important}
+}
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="top-in">
+    <div class="logo"><img src="data:image/png;base64,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" alt="KC Diamonds shield logo"></div>
+    <div class="titles"><h1>Pitch call log</h1><p id="sub">Jr Diamonds</p></div>
+    <div class="tot" id="tot" aria-live="polite"><b>0</b><span>pitches</span></div>
+    <button class="icon-btn" id="themeBtn" data-action="theme" aria-label="Switch between light and dark mode"></button>
+  </div>
+</header>
+<main id="view"></main>
+<nav class="bar" id="nav" aria-label="Sections"></nav>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<div class="scrim" id="scrim"><div class="sheet" id="sheet" role="dialog" aria-modal="true" aria-label="Details"></div></div>
+
+<script>
+(function(){
+'use strict';
+var KEY='kcd-pitchlog-v1', TKEY='kcd-pitchlog-theme';
+
+var PITCHES=[
+  {id:'FB',name:'Fastball',color:'#C73A2E'},
+  {id:'CH',name:'Change-up',color:'#217A47'},
+  {id:'DR',name:'Drop',color:'#6B3FB8'},
+  {id:'RI',name:'Rise',color:'#1A6FB0'},
+  {id:'CV',name:'Curve',color:'#9A5B00'},
+  {id:'SC',name:'Screw',color:'#B02A7D'}
+];
+var PN={},PC={};
+PITCHES.forEach(function(p){PN[p.id]=p.name;PC[p.id]=p.color;});
+
+var RES={
+  ball:{label:'Ball',short:'Ball',color:'#2E7FB8'},
+  called:{label:'Called strike',short:'Called',color:'#4D9B68'},
+  swing:{label:'Swing and miss',short:'Swing',color:'#1E7A46'},
+  foul:{label:'Foul',short:'Foul',color:'#A8843A'},
+  out:{label:'Out in play',short:'Out',color:'#1E7A46'},
+  hit:{label:'Hit',short:'Hit',color:'#B3261E'},
+  error:{label:'Error',short:'Error',color:'#C2610A'},
+  hbp:{label:'Hit by pitch',short:'HBP',color:'#6B7280'}
+};
+var RG1=['ball','called','swing','foul'], RG2=['out','hit','error','hbp'];
+var LOCS=[['High in','High mid','High away'],['Mid in','Middle','Mid away'],['Low in','Low mid','Low away']];
+
+var IC={
+  call:'<circle cx="12" cy="12" r="9"/><path d="M6.5 5.5c3 3.5 3 9.5 0 13M17.5 5.5c-3 3.5-3 9.5 0 13"/>',
+  log:'<path d="M5 6h14M5 12h14M5 18h9"/>',
+  stats:'<path d="M5 20v-9M12 20V4M19 20v-6"/>',
+  setup:'<path d="M4 7h9M17 7h3M4 17h3M11 17h9"/><circle cx="15" cy="7" r="2"/><circle cx="9" cy="17" r="2"/>',
+  sun:'<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/>',
+  moon:'<path d="M20 14.5A8 8 0 0 1 9.5 4 8 8 0 1 0 20 14.5z"/>',
+  undo:'<path d="M9 14 4 9l5-5"/><path d="M4 9h9a6 6 0 0 1 0 12h-3"/>',
+  edit:'<path d="M4 20h4L19 9l-4-4L4 16v4z"/>',
+  share:'<path d="M12 15V3M7 8l5-5 5 5M5 21h14"/>',
+  x:'<path d="M6 6l12 12M18 6 6 18"/>',
+  plus:'<path d="M12 5v14M5 12h14"/>'
+};
+function ic(n,sz){sz=sz||22;return '<svg width="'+sz+'" height="'+sz+'" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'+IC[n]+'</svg>';}
+
+function $(s,r){return (r||document).querySelector(s);}
+function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];});}
+function buzz(ms){try{if(navigator.vibrate)navigator.vibrate(ms);}catch(e){}}
+function isoToday(){var d=new Date();return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');}
+
+/* state */
+function defaults(){
+  return {v:1,tab:'call',
+    game:{opp:'',date:isoToday(),lineupSize:9,trackLoc:true,locv:2,wake:true},
+    pitchers:['Pitcher 1','Pitcher 2','Pitcher 3'],pitcherIdx:0,inning:1,
+    lineup:Array.from({length:11},function(){return {label:'',hand:'R'};}),
+    slot:0,abId:1,pitches:[]};
+}
+function load(){
+  var d=defaults();
+  try{
+    var raw=localStorage.getItem(KEY);
+    if(raw){
+      var o=JSON.parse(raw);
+      if(o&&o.v===1){
+        d.tab=(o.tab&&o.tab!=='log')?o.tab:'call';
+        Object.assign(d.game,o.game||{});if(!o.game||o.game.locv!==2){d.game.trackLoc=true;d.game.locv=2;}
+        if(Array.isArray(o.pitchers)&&o.pitchers.length)d.pitchers=o.pitchers;
+        d.pitcherIdx=o.pitcherIdx||0;
+        d.inning=o.inning||1;
+        if(Array.isArray(o.lineup))o.lineup.forEach(function(l,i){if(i<11&&l)d.lineup[i]={label:String(l.label||''),hand:l.hand||'R'};});
+        d.slot=o.slot||0;d.abId=o.abId||1;d.updatedAt=o.updatedAt||0;
+        if(Array.isArray(o.pitches))d.pitches=o.pitches;
+      }
+    }
+  }catch(e){}
+  if(d.pitcherIdx>=d.pitchers.length)d.pitcherIdx=0;
+  return d;
+}
+var S=load();
+function sig(){return [S.pitches.length,S.slot,S.abId,S.inning,S.pitcherIdx,S.game.opp,S.game.date,S.game.lineupSize,JSON.stringify(S.pitchers),JSON.stringify(S.lineup)].join('|');}
+var lastSig=sig();
+function save(){
+  var s=sig();
+  if(s!==lastSig){lastSig=s;S.updatedAt=Date.now();schedulePush();}
+  try{localStorage.setItem(KEY,JSON.stringify(S));}catch(e){}
+}
+var sel={pitch:null,loc:null};
+var statFilter='all';
+var tempHand='R';
+var exportMode='summary';
+var exportSrc=null;
+var GKEY='kcd-pitchlog-games-v1';
+var ARCH=[];
+try{var ra=localStorage.getItem(GKEY);if(ra)ARCH=JSON.parse(ra)||[];}catch(e){ARCH=[];}
+function saveArch(){try{localStorage.setItem(GKEY,JSON.stringify(ARCH));}catch(e){toast('Could not save games on this device');}}
+function archiveCurrent(){
+  if(!S.pitches.length)return;
+  ARCH.unshift({id:Date.now(),savedAt:Date.now(),game:{opp:S.game.opp,date:S.game.date,lineupSize:S.game.lineupSize},pitchers:S.pitchers.slice(),lineup:S.lineup.map(function(l){return {label:l.label,hand:l.hand};}),pitches:S.pitches,inning:S.inning,slot:S.slot,abId:S.abId});
+  ARCH=ARCH.slice(0,40);
+  saveArch();
+  syncArchive();
+}
+
+function pName(i){return (S.pitchers[i]||'').trim()||('Pitcher '+(i+1));}
+function bLabel(slot){return (S.lineup[slot].label||'').trim()||('Batter '+(slot+1));}
+function handText(h){return h==='L'?'Bats left':h==='S'?'Switch hitter':'Bats right';}
+
+/* counting */
+function bump(b,k,res){
+  if(res==='ball')b++;
+  else if(res==='called'||res==='swing')k++;
+  else if(res==='foul'&&k<2)k++;
+  return [b,k];
+}
+function countFor(abId){
+  var b=0,k=0;
+  S.pitches.forEach(function(p){if(p.abId===abId){var r=bump(b,k,p.result);b=r[0];k=r[1];}});
+  return {b:b,k:k};
+}
+function groupABs(list){
+  var m=new Map();
+  list.forEach(function(p){
+    var a=m.get(p.abId);
+    if(!a){a={abId:p.abId,slot:p.slot,label:p.label,hand:p.hand,inning:p.inning,pitcher:p.pitcher,pitches:[],end:null};m.set(p.abId,a);}
+    a.pitches.push(p);
+    if(p.end)a.end=p.end;
+  });
+  return Array.from(m.values());
+}
+
+/* theme */
+function currentTheme(){
+  var a=document.documentElement.getAttribute('data-theme');
+  if(a)return a;
+  return window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';
+}
+function applyThemeIcon(){$('#themeBtn').innerHTML=ic(currentTheme()==='dark'?'sun':'moon',22);}
+function toggleTheme(){
+  var n=currentTheme()==='dark'?'light':'dark';
+  document.documentElement.setAttribute('data-theme',n);
+  try{localStorage.setItem(TKEY,n);}catch(e){}
+  applyThemeIcon();
+}
+(function(){try{var t=localStorage.getItem(TKEY);if(t)document.documentElement.setAttribute('data-theme',t);}catch(e){}})();
+
+/* wake lock (best effort) */
+var wl=null;
+function wake(){
+  try{
+    if(S.game.wake&&'wakeLock' in navigator&&document.visibilityState==='visible'){
+      navigator.wakeLock.request('screen').then(function(l){wl=l;}).catch(function(){});
+    }else if(wl){wl.release();wl=null;}
+  }catch(e){}
+}
+document.addEventListener('visibilitychange',function(){wake();if(document.visibilityState==='visible'&&DB&&UID&&Date.now()-lastRec>30000)reconcile();});
+
+/* toast + sheet */
+var tt;
+function toast(msg,withUndo){
+  var el=$('#toast');
+  el.innerHTML='<span>'+esc(msg)+'</span>'+(withUndo?'<button type="button" data-action="undo">Undo</button>':'');
+  el.classList.add('show');
+  clearTimeout(tt);
+  tt=setTimeout(function(){el.classList.remove('show');},withUndo?4500:2200);
+}
+function openSheet(html){
+  $('#sheet').innerHTML=html;
+  $('#scrim').classList.add('on');
+  setTimeout(function(){var f=$('#sheet input,#sheet textarea,#sheet button');if(f)f.focus();},40);
+}
+function closeSheet(){$('#scrim').classList.remove('on');exportSrc=null;}
+$('#scrim').addEventListener('click',function(e){if(e.target===this)closeSheet();});
+document.addEventListener('keydown',function(e){
+  if(e.key==='Escape')closeSheet();
+  if(e.key==='Enter'&&e.target&&e.target.id==='bl'){e.preventDefault();act('save-batter',String(batterEditSlot));}
+});
+
+/* logging */
+function nudge(){
+  var g=$('.callgrid');
+  if(g){g.classList.remove('nudge');void g.offsetWidth;g.classList.add('nudge');}
+  toast('Pick the pitch first');
+  buzz(30);
+}
+function logResult(id){
+  if(!sel.pitch){nudge();return;}
+  var c=countFor(S.abId);
+  var r=bump(c.b,c.k,id),b=r[0],k=r[1],end=null;
+  if(id==='ball'&&b>=4)end='Walk';
+  else if((id==='called'||id==='swing')&&k>=3)end='Strikeout';
+  else if(id==='out')end='Out';
+  else if(id==='hit')end='Hit';
+  else if(id==='error')end='Error';
+  else if(id==='hbp')end='HBP';
+  var L=S.lineup[S.slot];
+  S.pitches.push({abId:S.abId,slot:S.slot,label:(L.label||'').trim(),hand:L.hand,pitcher:pName(S.pitcherIdx),inning:S.inning,type:sel.pitch,loc:sel.loc||'',result:id,b:c.b,k:c.k,end:end,t:Date.now()});
+  sel={pitch:null,loc:null};
+  if(end){
+    S.slot=(S.slot+1)%S.game.lineupSize;
+    S.abId=S.abId+1;
+    toast(end+'. '+bLabel(S.slot)+' is up.',true);
+  }
+  save();render();buzz(end?[12,40,12]:12);
+}
+function undo(){
+  var p=S.pitches.pop();
+  if(!p){toast('Nothing to undo');return;}
+  S.slot=p.slot;S.abId=p.abId;sel={pitch:null,loc:null};
+  save();render();
+  toast('Removed '+PN[p.type]+', '+RES[p.result].short);
+}
+
+/* stats */
+function pct(n,d){return d?Math.round(100*n/d)+'%':'-';}
+function calc(list){
+  var T={};
+  PITCHES.forEach(function(p){T[p.id]={n:0,strikes:0,swings:0,whiffs:0,hits:0};});
+  list.forEach(function(p){
+    var t=T[p.type];if(!t)return;
+    t.n++;
+    var r=p.result;
+    if(r!=='ball'&&r!=='hbp')t.strikes++;
+    if(r==='swing'){t.whiffs++;t.swings++;}
+    if(r==='foul')t.swings++;
+    if(r==='out'||r==='hit'||r==='error')t.swings++;
+    if(r==='hit')t.hits++;
+  });
+  var abs=groupABs(list),done=abs.filter(function(a){return a.end;});
+  var fps=0;
+  abs.forEach(function(a){var f=a.pitches[0].result;if(f!=='ball'&&f!=='hbp')fps++;});
+  var strikes=0;PITCHES.forEach(function(p){strikes+=T[p.id].strikes;});
+  var ends={Strikeout:0,Walk:0,Hit:0,Out:0,Error:0,HBP:0};
+  done.forEach(function(a){ends[a.end]++;});
+  var ppa=done.length?(done.reduce(function(s,a){return s+a.pitches.length;},0)/done.length):0;
+  return {T:T,total:list.length,strikes:strikes,abs:abs,done:done,fps:fps,ends:ends,ppa:ppa};
+}
+function priorFor(slot,label,exceptAb){
+  return groupABs(S.pitches).filter(function(a){return a.slot===slot&&a.label===label&&a.abId!==exceptAb&&a.end;});
+}
+function lastPitchName(a){return PN[a.pitches[a.pitches.length-1].type];}
+function endClass(e){return e==='Strikeout'||e==='Out'?'good':(e==='Hit'||e==='Error'?'bad':'mid');}
+
+/* chips */
+function chip(p,showCount,latest){
+  return '<span class="sc'+(latest?' latest':'')+'" style="--pc:'+PC[p.type]+'"><b>'+p.type+'</b>'+esc(RES[p.result].short)+(p.loc?' '+esc(p.loc):'')+(showCount?'<i>'+p.b+'-'+p.k+'</i>':'')+'</span>';
+}
+
+/* views */
+function renderHead(){
+  var g=S.game;
+  $('#sub').textContent='Jr Diamonds'+(g.opp.trim()?' vs '+g.opp.trim():'');
+  $('#tot').innerHTML='<b>'+S.pitches.length+'</b><span>pitches</span><i id="sdot" class="sdot sd-'+syncState+'" role="img" aria-label="Sync status"></i>';
+  applyThemeIcon();
+}
+function renderNav(){
+  var tabs=[['call','Call','call'],['stats','Stats','stats'],['setup','Setup','setup']];
+  $('#nav').innerHTML='<div class="bar-in" role="tablist">'+tabs.map(function(t){
+    return '<button type="button" class="tabbtn" role="tab" data-action="tab" data-arg="'+t[0]+'" aria-selected="'+(S.tab===t[0])+'">'+ic(t[2],24)+'<span>'+t[1]+'</span></button>';
+  }).join('')+'</div>';
+}
+function dots(n,max,cls){
+  var h='';for(var i=0;i<max;i++)h+='<i class="dot '+cls+(i<n?' on':'')+'"></i>';return h;
+}
+function renderCall(){
+  var size=S.game.lineupSize;if(S.slot>=size)S.slot=0;
+  var c=countFor(S.abId);
+  var seq=S.pitches.filter(function(p){return p.abId===S.abId;});
+  var L=S.lineup[S.slot];
+  var prior=priorFor(S.slot,(L.label||'').trim(),S.abId);
+  var priorTxt=prior.length?'Earlier: '+prior.map(function(a){return a.end+' on '+lastPitchName(a);}).join(', '):'';
+  var ready=!!sel.pitch;
+  var h='';
+  h+='<div class="ctx"><div class="pchips" role="group" aria-label="Pitcher">'+S.pitchers.map(function(n,i){
+    return '<button type="button" class="pchip" data-action="pitcher" data-arg="'+i+'" aria-pressed="'+(i===S.pitcherIdx)+'">'+esc(pName(i))+'</button>';
+  }).join('')+'</div>';
+  h+='<div class="inn"><button type="button" data-action="inning" data-arg="-1" aria-label="Previous inning">&minus;</button><span>Inning '+S.inning+'</span><button type="button" data-action="inning" data-arg="1" aria-label="Next inning">+</button></div></div>';
+
+  h+='<div class="layout"><div class="col">';
+  h+='<section class="card" aria-label="Current batter"><div class="bt">';
+  h+='<button type="button" class="bbtn" data-action="edit-batter" aria-label="Edit batter '+(S.slot+1)+'"><span class="slot">'+(S.slot+1)+'</span><span class="bmeta"><span class="bname">'+esc(bLabel(S.slot))+'</span><span class="bsub">'+handText(L.hand)+' '+ic('edit',14)+'</span></span></button>';
+  h+='<div class="cnt"><div class="num" aria-label="Count: '+c.b+' balls, '+c.k+' strikes">'+c.b+'-'+c.k+'</div><div class="dots"><span>B</span>'+dots(c.b,3,'b')+'<i class="gap"></i><span>S</span>'+dots(c.k,2,'s')+'</div></div></div>';
+  h+='<div class="seq" aria-label="Pitches this at-bat">'+(seq.length?seq.slice(-3).map(function(p,i,arr){return chip(p,false,i===arr.length-1);}).join(''):(S.pitches.length?'<span class="none">Last call</span>'+chip(S.pitches[S.pitches.length-1],true,true):'<span class="none">No pitches yet</span>'))+'</div>';
+  if(priorTxt)h+='<div class="prior">'+esc(priorTxt)+'</div>';
+  h+='<div class="acts"><button type="button" data-action="undo">'+ic('undo',18)+'Undo</button><button type="button" data-action="clear" aria-label="Clear the count">Clear</button><button type="button" data-action="prev" aria-label="Previous batter">Prev</button><button type="button" data-action="next" aria-label="Next batter">Next</button></div>';
+  h+='</section>';
+
+  h+='<section class="card"><p class="gh">Pitch call</p><div class="callgrid">'+PITCHES.map(function(p){
+    var used=seq.filter(function(q){return q.type===p.id;}).length;
+    return '<button type="button" class="cbtn" style="--pc:'+p.color+'" data-action="pick" data-arg="'+p.id+'" aria-pressed="'+(sel.pitch===p.id)+'" aria-label="'+p.name+'"><span class="ab">'+p.id+'</span><span class="nm">'+p.name+'</span>'+(used?'<span class="x">x'+used+'</span>':'')+'</button>';
+  }).join('')+'</div>';
+  if(S.game.trackLoc){
+    h+='<p class="gh" style="margin-top:8px">Location (from the batter&rsquo;s view)</p><div class="locgrid">'+LOCS.map(function(row){
+      return row.map(function(l){return '<button type="button" class="lbtn" data-action="loc" data-arg="'+l+'" aria-pressed="'+(sel.loc===l)+'">'+l+'</button>';}).join('');
+    }).join('')+'</div>';
+  }
+  h+='</section></div>';
+
+  h+='<div class="col"><section class="card">';
+  h+='<p class="gh">'+(ready?'What happened to the '+esc(PN[sel.pitch])+'?':'Pick a pitch first, then tap the result')+'</p>';
+  h+='<div class="rgrid">'+RG1.map(function(id){return rbtn(id,ready);}).join('')+'</div>';
+  h+='<p class="gh">Ends the at-bat (walks and strikeouts count automatically)</p>';
+  h+='<div class="rgrid">'+RG2.map(function(id){return rbtn(id,ready);}).join('')+'</div>';
+  h+='</section>'+logSection()+'</div></div>';
+  return h;
+}
+function rbtn(id,ready){
+  return '<button type="button" class="rbtn" style="--rc:'+RES[id].color+'" data-action="res" data-arg="'+id+'" data-ready="'+ready+'">'+RES[id].label+'</button>';
+}
+
+function logSection(){
+  var abs=groupABs(S.pitches).reverse();
+  var h='<div class="row-between"><h2>Pitch log</h2><button type="button" class="btn small" data-action="export">'+ic('share',18)+'Export</button></div>';
+  if(!abs.length){
+    return h+'<div class="card empty" style="padding:22px 12px"><p>Every call shows up here, newest first.</p></div>';
+  }
+  h+='<div class="stack">'+abs.map(function(a,ai){
+    var cur=a.abId===S.abId&&!a.end;
+    var badge=a.end?'<span class="badge '+endClass(a.end)+'">'+a.end+'</span>':'<span class="badge">'+(cur?'In progress':'Unfinished')+'</span>';
+    return '<article class="card ab"><div class="ab-h"><span class="slot sm">'+(a.slot+1)+'</span><div class="who"><strong>'+esc(a.label||('Batter '+(a.slot+1)))+'</strong> <span class="hd">('+esc(a.hand)+')</span><small>Inning '+a.inning+', '+esc(a.pitcher)+', '+a.pitches.length+' pitch'+(a.pitches.length===1?'':'es')+'</small></div>'+badge+'</div><div class="seq">'+a.pitches.map(function(p,i){return chip(p,true,ai===0&&i===a.pitches.length-1);}).join('')+'</div></article>';
+  }).join('')+'</div>';
+  return h;
+}
+
+function renderStats(){
+  var names=[];S.pitches.forEach(function(p){if(names.indexOf(p.pitcher)<0)names.push(p.pitcher);});
+  if(statFilter!=='all'&&names.indexOf(statFilter)<0)statFilter='all';
+  var list=statFilter==='all'?S.pitches:S.pitches.filter(function(p){return p.pitcher===statFilter;});
+  if(!S.pitches.length){
+    return '<div class="card empty"><h2>No stats yet</h2><p>Log a few pitches and this tab will show what you called, how often, and what worked.</p></div>';
+  }
+  var C=calc(list);
+  var h='';
+  if(names.length>1){
+    h+='<div class="fchips" role="group" aria-label="Filter by pitcher"><button type="button" class="pchip" data-action="sf" data-arg="all" aria-pressed="'+(statFilter==='all')+'">All pitchers</button>'+names.map(function(n,i){
+      return '<button type="button" class="pchip" data-action="sf" data-arg="'+i+'" aria-pressed="'+(statFilter===n)+'">'+esc(n)+'</button>';
+    }).join('')+'</div>';
+  }
+  h+='<div class="stats-cols"><div class="stack">';
+  h+='<section class="card"><div class="tiles">';
+  h+='<div class="tile"><b>'+C.total+'</b><span>Pitches</span></div>';
+  h+='<div class="tile"><b>'+pct(C.strikes,C.total)+'</b><span>Strikes</span></div>';
+  h+='<div class="tile"><b>'+pct(C.fps,C.abs.length)+'</b><span>First-pitch strikes</span></div>';
+  h+='<div class="tile"><b>'+(C.done.length?C.ppa.toFixed(1):'-')+'</b><span>Pitches per at-bat</span></div>';
+  h+='</div><div class="ends">'+['Strikeout','Walk','Hit','Out','Error','HBP'].map(function(k){return '<span>'+(k==='Strikeout'?'Strikeouts':k==='Walk'?'Walks':k==='Hit'?'Hits':k==='Out'?'Outs':k==='Error'?'Errors':'HBP')+'<b>'+C.ends[k]+'</b></span>';}).join('')+'</div></section>';
+  h+='<section class="card"><h2 style="margin-bottom:8px">By pitch</h2><div class="tscroll"><table class="st"><thead><tr><th>Pitch</th><th>Thrown</th><th>Mix</th><th>Strike %</th><th>Whiff %</th><th>Hits</th></tr></thead><tbody>';
+  PITCHES.forEach(function(p){
+    var t=C.T[p.id];
+    h+='<tr style="--pc:'+p.color+'"><td><span class="pn"><i></i>'+p.name+'</span></td><td>'+t.n+'</td><td><span class="mix"><span class="mixbar"><i style="width:'+(C.total?Math.round(100*t.n/C.total):0)+'%"></i></span>'+pct(t.n,C.total)+'</span></td><td>'+pct(t.strikes,t.n)+'</td><td>'+pct(t.whiffs,t.swings)+'</td><td>'+t.hits+'</td></tr>';
+  });
+  h+='</tbody></table></div><p class="hint">Whiff % is swings and misses out of all swings (misses, fouls, and balls put in play).</p></section></div>';
+
+  h+='<div class="stack"><section class="card"><h2 style="margin-bottom:4px">By batter</h2>';
+  var any=false;
+  for(var s=0;s<S.game.lineupSize;s++){
+    var abs=C.abs.filter(function(a){return a.slot===s;});
+    if(!abs.length)continue;
+    any=true;
+    var last=abs[abs.length-1];
+    h+='<div class="bcard" style="margin-top:14px"><h3><span class="slot sm">'+(s+1)+'</span>'+esc(last.label||('Batter '+(s+1)))+' <small>'+esc(handText(last.hand))+'</small></h3>';
+    abs.forEach(function(a){
+      h+='<div class="bline">'+(a.end?'<span class="badge '+endClass(a.end)+'">'+a.end+'</span> on '+lastPitchName(a):'<span class="badge">Unfinished</span>')+' <span style="color:var(--muted)">'+a.pitches.length+' pitch'+(a.pitches.length===1?'':'es')+'</span></div>';
+    });
+    h+='</div>';
+  }
+  if(!any)h+='<p class="hint">At-bats will show up here as you log them.</p>';
+  h+='</section></div></div>';
+  return h;
+}
+
+function renderSetup(){
+  var g=S.game;
+  var h='<div class="stack">';
+  h+='<section class="card"><h2>Game</h2><label class="lab" for="opp">Opponent</label><input id="opp" class="field" data-bind="opp" value="'+esc(g.opp)+'" placeholder="Team name" maxlength="40" autocomplete="off"><label class="lab" for="dt">Date</label><input id="dt" class="field" type="date" data-bind="date" value="'+esc(g.date)+'"></section>';
+  h+='<section class="card"><h2>Our pitchers</h2><p class="hint">Tap a name on the Call tab to switch pitchers.</p>';
+  S.pitchers.forEach(function(n,i){
+    h+='<div class="lrow"><input class="field" data-bind="pitcher:'+i+'" value="'+esc(n)+'" aria-label="Pitcher '+(i+1)+' name" maxlength="24" autocomplete="off"><button type="button" class="hbtn" data-action="rm-pitcher" data-arg="'+i+'" aria-label="Remove pitcher '+(i+1)+'">'+ic('x',18)+'</button></div>';
+  });
+  if(S.pitchers.length<6)h+='<div class="row" style="margin-top:12px"><button type="button" class="btn ghost" data-action="add-pitcher">'+ic('plus',18)+'Add pitcher</button></div>';
+  h+='</section>';
+  h+='<section class="card"><h2>Their batting order</h2><p class="hint">Optional. Add a jersey number or name now, or tap the batter on the Call tab during the game. The L, R, or S button sets which side she bats on.</p>';
+  for(var i=0;i<g.lineupSize;i++){
+    var L=S.lineup[i];
+    h+='<div class="lrow"><span class="slot sm">'+(i+1)+'</span><input class="field" data-bind="lineup:'+i+'" value="'+esc(L.label)+'" placeholder="Number or name" aria-label="Batter '+(i+1)+' number or name" maxlength="24" autocomplete="off"><button type="button" class="hbtn" data-action="cyc" data-arg="'+i+'" aria-label="Batter '+(i+1)+': '+handText(L.hand)+'. Tap to change.">'+esc(L.hand)+'</button></div>';
+  }
+  h+='</section>';
+  h+='<section class="card"><h2>Options</h2><label class="lab" for="size">Batters in their order</label><select id="size" class="field" data-bind="size">'+[9,10,11].map(function(n){return '<option value="'+n+'"'+(g.lineupSize===n?' selected':'')+'>'+n+'</option>';}).join('')+'</select>';
+  h+='<div style="margin-top:10px"><label class="sw"><span>Track pitch location<small>Adds a 3 by 3 location grid to the Call tab.</small></span><input type="checkbox" data-bind="trackLoc"'+(g.trackLoc?' checked':'')+'><i></i></label>';
+  h+='<label class="sw"><span>Keep the screen awake<small>Works on most phones and tablets when supported.</small></span><input type="checkbox" data-bind="wake"'+(g.wake?' checked':'')+'><i></i></label></div></section>';
+  h+=syncCard();
+  h+=savedGamesCard();
+  h+='<section class="card"><h2>Game data</h2><p class="hint">Your game saves on this device as you go. Export gives you a copy to send or keep elsewhere.</p><div class="row"><button type="button" class="btn ghost" data-action="export">'+ic('share',18)+'Export</button><button type="button" class="btn warn" data-action="newgame">Start new game</button></div></section>';
+  h+='</div>';
+  return h;
+}
+
+function render(){
+  renderHead();renderNav();
+  var fn={call:renderCall,stats:renderStats,setup:renderSetup}[S.tab]||renderCall;
+  $('#view').innerHTML=fn();
+}
+
+/* sheets */
+var batterEditSlot=0;
+function batterSheet(slot){
+  batterEditSlot=slot;
+  var L=S.lineup[slot];tempHand=L.hand;
+  openSheet('<h2 class="sh">Batter '+(slot+1)+'</h2><label class="lab" for="bl">Jersey number or name</label><input id="bl" class="field" type="text" value="'+esc(L.label)+'" placeholder="Example: 12 or Smith" maxlength="24" autocomplete="off"><div class="lab">Bats</div><div class="seg" id="bh">'+['L','R','S'].map(function(h){return '<button type="button" data-action="hand" data-arg="'+h+'" aria-pressed="'+(L.hand===h)+'">'+(h==='L'?'Left':h==='R'?'Right':'Switch')+'</button>';}).join('')+'</div><p class="hint">Changes apply to the pitches you log from now on.</p><div class="row"><button type="button" class="btn ghost" data-action="close">Cancel</button><button type="button" class="btn" data-action="save-batter" data-arg="'+slot+'">Save</button></div>');
+}
+function summaryText(){
+  var T=exportSrc||S,g=T.game,C=calc(T.pitches);
+  var out=[];
+  out.push('Jr Diamonds pitch log');
+  out.push('vs '+(g.opp.trim()||'opponent')+', '+g.date);
+  var pc={};T.pitches.forEach(function(p){pc[p.pitcher]=(pc[p.pitcher]||0)+1;});
+  out.push('Pitchers: '+(Object.keys(pc).map(function(k){return k+' ('+pc[k]+')';}).join(', ')||'none yet'));
+  out.push('');
+  out.push('Total: '+C.total+' pitches, '+pct(C.strikes,C.total)+' strikes, '+pct(C.fps,C.abs.length)+' first-pitch strikes');
+  out.push('');
+  out.push('By pitch:');
+  PITCHES.forEach(function(p){var t=C.T[p.id];if(t.n)out.push('  '+p.name+': '+t.n+' ('+pct(t.n,C.total)+' of pitches), strikes '+pct(t.strikes,t.n)+', whiffs '+pct(t.whiffs,t.swings)+', hits '+t.hits);});
+  out.push('');
+  out.push('At-bats: '+C.ends.Strikeout+' strikeouts, '+C.ends.Walk+' walks, '+C.ends.Hit+' hits, '+C.ends.Out+' outs, '+C.ends.Error+' errors, '+C.ends.HBP+' hit by pitch');
+  out.push('');
+  out.push('By batter:');
+  for(var s=0;s<g.lineupSize;s++){
+    var abs=C.abs.filter(function(a){return a.slot===s;});
+    if(!abs.length)continue;
+    var last=abs[abs.length-1];
+    out.push('  '+(s+1)+'. '+(last.label||('Batter '+(s+1)))+' ('+last.hand+'): '+abs.map(function(a){return a.end?(a.end+' on '+lastPitchName(a)):'unfinished';}).join('; '));
+  }
+  return out.join('\n');
+}
+function csvText(){
+  var q=function(v){return '"'+String(v==null?'':v).replace(/"/g,'""')+'"';};
+  var T=exportSrc||S,g=T.game;
+  var rows=[['date','opponent','pitch_no','inning','pitcher','batter_spot','batter','bats','count_before','pitch','location','result','at_bat_result'].map(q).join(',')];
+  T.pitches.forEach(function(p,i){
+    rows.push([g.date,g.opp,i+1,p.inning,p.pitcher,p.slot+1,p.label||('Batter '+(p.slot+1)),p.hand,p.b+'-'+p.k,PN[p.type],p.loc,RES[p.result].label,p.end||''].map(q).join(','));
+  });
+  return rows.join('\n');
+}
+function setXT(){
+  var t=exportMode==='csv'?csvText():summaryText();
+  var ta=$('#xt');if(ta)ta.value=t;
+  var m=$('#xm');if(m)Array.prototype.forEach.call(m.children,function(b){b.setAttribute('aria-pressed',String(b.dataset.arg===exportMode));});
+  var xs=$('#xs');if(xs)xs.textContent=exportMode==='csv'?'Paste this into Excel or Google Sheets.':'Paste this into a text message or email.';
+}
+function exportSheet(){
+  exportMode='summary';
+  openSheet('<h2 class="sh">Export game</h2><div class="seg" id="xm"><button type="button" data-action="xmode" data-arg="summary" aria-pressed="true">Summary</button><button type="button" data-action="xmode" data-arg="csv" aria-pressed="false">Spreadsheet (CSV)</button></div><textarea id="xt" class="field area" readonly aria-label="Export text"></textarea><p class="hint" id="xs"></p><div class="row"><button type="button" class="btn ghost" data-action="close">Close</button>'+(navigator.share?'<button type="button" class="btn ghost" data-action="share">Share</button>':'')+'<button type="button" class="btn" data-action="copy">Copy</button></div>');
+  setXT();
+}
+function copyOut(){
+  var ta=$('#xt');if(!ta)return;
+  var done=function(ok){var xs=$('#xs');if(xs)xs.textContent=ok?'Copied.':'Could not copy. Press and hold the text to copy it.';};
+  ta.focus();ta.select();try{ta.setSelectionRange(0,ta.value.length);}catch(e){}
+  if(navigator.clipboard&&window.isSecureContext){
+    navigator.clipboard.writeText(ta.value).then(function(){done(true);}).catch(function(){var ok=false;try{ok=document.execCommand('copy');}catch(e){}done(ok);});
+  }else{var ok=false;try{ok=document.execCommand('copy');}catch(e){}done(ok);}
+}
+var SKEY='kcd-pitchlog-synced-v1';
+var syncedIds=[];
+try{syncedIds=JSON.parse(localStorage.getItem(SKEY)||'[]')||[];}catch(e){syncedIds=[];}
+function saveSynced(){try{localStorage.setItem(SKEY,JSON.stringify(syncedIds));}catch(e){}}
+function markSynced(id){id=String(id);if(syncedIds.indexOf(id)<0){syncedIds.push(id);saveSynced();}}
+function unmarkSynced(id){id=String(id);var i=syncedIds.indexOf(id);if(i>=0){syncedIds.splice(i,1);saveSynced();}}
+var DB=null,UID=null,syncState='off',lastSync=0,lastRec=0,pushT=null,pushing=false,pushAgain=false,pendingRemote=null;
+function colRef(){return DB.collection('data/users/'+UID);}
+function isTyping(){var a=document.activeElement;return !!a&&(a.tagName==='INPUT'||a.tagName==='TEXTAREA'||a.tagName==='SELECT');}
+function syncInner(){
+  var time=lastSync?new Date(lastSync).toLocaleTimeString([],{hour:'numeric',minute:'2-digit'}):'';
+  var t;
+  if(syncState==='on')t='Synced'+(time?' at '+time:'')+'. Games you chart here also show up on your other devices that open this page signed in to Claude.';
+  else if(syncState==='syncing'||syncState==='connecting')t='Syncing now.';
+  else if(syncState==='error')t='Could not reach the sync service right now. Everything is still saved on this device and will sync when the connection is back.';
+  else t='Not syncing. Open this page while signed in to Claude and your games will back up and follow you between your phone and iPad.';
+  var b=(DB&&UID)?'<div class="row"><button type="button" class="btn ghost" data-action="sync-now">Sync now</button></div>':'';
+  return '<h2>Sync</h2><p class="hint">'+esc(t)+'</p>'+b;
+}
+function syncCard(){return '<section class="card" id="synccard">'+syncInner()+'</section>';}
+function updateSyncUI(){
+  var d=$('#sdot');
+  if(d){d.className='sdot sd-'+syncState;d.title={on:'Synced',syncing:'Syncing',connecting:'Connecting',error:'Sync problem',off:'Not syncing'}[syncState]||'';}
+  var c=$('#synccard');
+  if(c)c.innerHTML=syncInner();
+}
+function payload(){
+  return {updatedAt:S.updatedAt||Date.now(),game:{opp:S.game.opp,date:S.game.date,lineupSize:S.game.lineupSize},pitchers:S.pitchers,pitcherIdx:S.pitcherIdx,inning:S.inning,lineup:S.lineup,slot:S.slot,abId:S.abId,pitches:S.pitches};
+}
+function schedulePush(){
+  if(!DB||!UID)return;
+  clearTimeout(pushT);
+  pushT=setTimeout(pushCurrent,1800);
+}
+function pushCurrent(){
+  if(!DB||!UID)return;
+  if(pushing){pushAgain=true;return;}
+  pushing=true;syncState='syncing';updateSyncUI();
+  colRef().doc('current').set(JSON.parse(JSON.stringify(payload()))).then(function(){syncState='on';lastSync=Date.now();}).catch(function(e){syncState='error';if(e&&e.code==='quota_exceeded')toast('Cloud storage is full. Delete old saved games.');}).then(function(){pushing=false;updateSyncUI();if(pushAgain){pushAgain=false;pushCurrent();}});
+}
+function syncArchive(){
+  if(!DB||!UID)return;
+  ARCH.forEach(function(g){
+    var id=String(g.id);
+    if(syncedIds.indexOf(id)>=0)return;
+    colRef().doc('g-'+id).set(JSON.parse(JSON.stringify(g))).then(function(){markSynced(id);}).catch(function(e){if(e&&e.code==='quota_exceeded')toast('Cloud storage is full. Delete old saved games.');});
+  });
+}
+function remoteDelete(id){
+  if(!DB||!UID)return;
+  colRef().doc('g-'+id).delete().then(function(){unmarkSynced(id);}).catch(function(){});
+}
+function blankGame(){
+  var d=defaults();
+  d.pitchers=S.pitchers.slice();d.game.lineupSize=S.game.lineupSize;d.game.trackLoc=S.game.trackLoc;d.game.wake=S.game.wake;d.tab=S.tab;
+  return d;
+}
+function applyRemote(rc){
+  if(!(rc.pitches&&rc.pitches[0]&&S.pitches[0]&&rc.pitches[0].t===S.pitches[0].t))archiveCurrent();
+  var d=blankGame(),g=rc.game||{};
+  d.game.opp=g.opp||'';d.game.date=g.date||d.game.date;d.game.lineupSize=g.lineupSize||9;
+  if(Array.isArray(rc.pitchers)&&rc.pitchers.length)d.pitchers=rc.pitchers.slice();
+  d.pitcherIdx=rc.pitcherIdx||0;if(d.pitcherIdx>=d.pitchers.length)d.pitcherIdx=0;
+  d.inning=rc.inning||1;
+  (rc.lineup||[]).forEach(function(l,i){if(i<11&&l)d.lineup[i]={label:l.label||'',hand:l.hand||'R'};});
+  d.slot=rc.slot||0;d.abId=rc.abId||1;d.pitches=rc.pitches||[];d.updatedAt=rc.updatedAt||Date.now();
+  S=d;sel={pitch:null,loc:null};lastSig=sig();
+  try{localStorage.setItem(KEY,JSON.stringify(S));}catch(e){}
+  render();
+}
+function promptRemote(rc){
+  pendingRemote=rc;
+  var when=new Date(rc.updatedAt).toLocaleString([],{month:'short',day:'numeric',hour:'numeric',minute:'2-digit'});
+  var g=rc.game||{};
+  var name=(g.opp&&g.opp.trim())?('vs '+g.opp.trim()):'a game';
+  openSheet('<h2 class="sh">Newer game from another device</h2><p>'+esc(name)+', '+(rc.pitches||[]).length+' pitches, last updated '+esc(when)+'.</p><p class="hint">If you use it here, a different game on this device is saved to Saved games first. Nothing is lost either way.</p><div class="row"><button type="button" class="btn ghost" data-action="remote-keep">Keep this device</button><button type="button" class="btn" data-action="remote-use">Use that game</button></div>');
+}
+function reconcile(){
+  if(!DB||!UID)return Promise.resolve();
+  lastRec=Date.now();syncState='syncing';updateSyncUI();
+  return colRef().get().then(function(snap){
+    var rg={},rc=null;
+    snap.docs.forEach(function(d){
+      if(d.id==='current')rc=JSON.parse(JSON.stringify(d.data()));
+      else if(d.id.indexOf('g-')===0)rg[d.id.slice(2)]=JSON.parse(JSON.stringify(d.data()));
+    });
+    var changed=false;
+    Object.keys(rg).forEach(function(id){
+      var have=ARCH.some(function(g){return String(g.id)===id;});
+      if(have)return;
+      if(syncedIds.indexOf(id)>=0){remoteDelete(id);return;}
+      var g2=rg[id];
+      if(S.pitches.length&&g2.pitches&&g2.pitches.length&&g2.pitches[0].t===S.pitches[0].t&&g2.pitches.length>=S.pitches.length){
+        S=blankGame();lastSig=sig();
+        try{localStorage.setItem(KEY,JSON.stringify(S));}catch(e){}
+        toast('A game you finished on another device is in Saved games');
+      }
+      ARCH.push(g2);markSynced(id);changed=true;
+    });
+    ARCH=ARCH.filter(function(g){
+      var id=String(g.id);
+      if(rg[id])return true;
+      if(syncedIds.indexOf(id)>=0){unmarkSynced(id);changed=true;return false;}
+      return true;
+    });
+    if(changed){ARCH.sort(function(a,b){return (b.savedAt||0)-(a.savedAt||0);});ARCH=ARCH.slice(0,40);saveArch();}
+    syncArchive();
+    var rn=rc?(rc.pitches||[]).length:0,rt=rc?(rc.updatedAt||0):0,lt=S.updatedAt||0;
+    if(rc&&rn>0&&rt>lt){
+      if(!S.pitches.length){applyRemote(rc);toast('Loaded your game from another device');}
+      else if(!$('#scrim').classList.contains('on')){promptRemote(rc);}
+    }else if(lt>rt&&(S.pitches.length||(rc&&rn===0))){
+      pushCurrent();
+    }
+    syncState='on';lastSync=Date.now();updateSyncUI();
+    if(changed&&S.tab==='setup'&&!isTyping())render();
+  }).catch(function(){syncState='error';updateSyncUI();});
+}
+function initSync(){
+  if(!window.claude||!window.claude.use){syncState='off';updateSyncUI();return;}
+  syncState='connecting';updateSyncUI();
+  Promise.all([window.claude.use('db'),window.claude.use('user')]).then(function(r){
+    DB=r[0];
+    var U=r[1];
+    if(!DB||!U){DB=null;syncState='off';updateSyncUI();return;}
+    return U.id().then(function(id){
+      if(!id){DB=null;syncState='off';updateSyncUI();return;}
+      UID=id;
+      return reconcile();
+    });
+  }).catch(function(){syncState='error';updateSyncUI();});
+}
+function openGame(id){
+  var g=ARCH.filter(function(x){return String(x.id)===String(id);})[0];
+  if(!g)return;
+  archiveCurrent();
+  ARCH=ARCH.filter(function(x){return x!==g;});remoteDelete(g.id);
+  var d=defaults();
+  d.game.trackLoc=S.game.trackLoc;d.game.wake=S.game.wake;
+  d.game.opp=g.game.opp;d.game.date=g.game.date;d.game.lineupSize=g.game.lineupSize;
+  d.pitchers=g.pitchers.slice();
+  g.lineup.forEach(function(l,i){if(i<11)d.lineup[i]={label:l.label,hand:l.hand};});
+  d.pitches=g.pitches;d.inning=g.inning;d.slot=g.slot;d.abId=g.abId;d.tab='call';
+  S=d;sel={pitch:null,loc:null};statFilter='all';
+  saveArch();save();render();window.scrollTo(0,0);
+  toast('Opened '+(g.game.opp.trim()?'vs '+g.game.opp.trim():'saved game'));
+}
+function gameLine(g){
+  var C=calc(g.pitches);
+  return g.pitches.length+' pitches, '+C.ends.Strikeout+' strikeouts, '+C.ends.Walk+' walks, '+C.ends.Hit+' hits';
+}
+function savedGamesCard(){
+  var h='<section class="card"><h2>Saved games</h2>';
+  if(!ARCH.length)return h+'<p class="hint">When you start a new game, the one you were charting is saved here automatically so you can reopen it later.</p></section>';
+  h+='<p class="hint">Saved on this device. Open one to see its log and stats. The game you are charting now is saved first, so nothing is lost.</p>';
+  ARCH.forEach(function(g){
+    h+='<div class="gcard"><div class="gt"><strong>'+esc(g.game.opp.trim()?('vs '+g.game.opp.trim()):'Game')+'</strong><span>'+esc(g.game.date)+'</span></div><div class="gs">'+esc(gameLine(g))+'</div><div class="row" style="margin-top:10px"><button type="button" class="btn small" data-action="open-game" data-arg="'+g.id+'">Open</button><button type="button" class="btn small ghost" data-action="export-game" data-arg="'+g.id+'">'+ic('share',18)+'Export</button><button type="button" class="btn small ghost" data-action="del-game" data-arg="'+g.id+'" aria-label="Delete saved game">'+ic('x',18)+'</button></div></div>';
+  });
+  return h+'</section>';
+}
+function newGameSheet(){
+  openSheet('<h2 class="sh">Start a new game?</h2><p>The game you are charting is saved to Saved games first. Then the count, pitches, and batting order reset. Your pitcher names and options stay.</p><div class="row"><button type="button" class="btn ghost" data-action="close">Keep this game</button><button type="button" class="btn warn" data-action="newgame-go">Save and start new</button></div><div class="row" style="margin-top:10px"><button type="button" class="btn ghost" data-action="export">Export first</button></div>');
+}
+
+/* actions */
+function act(a,arg,el){
+  switch(a){
+    case 'tab':S.tab=arg;save();render();window.scrollTo(0,0);$('#toast').classList.remove('show');break;
+    case 'theme':toggleTheme();break;
+    case 'pitcher':S.pitcherIdx=+arg;save();render();break;
+    case 'inning':S.inning=Math.max(1,Math.min(20,S.inning+(+arg)));save();render();break;
+    case 'pick':sel.pitch=(sel.pitch===arg)?null:arg;render();buzz(8);break;
+    case 'loc':sel.loc=(sel.loc===arg)?null:arg;render();break;
+    case 'res':logResult(arg);break;
+    case 'undo':undo();break;
+    case 'clear':S.abId++;sel={pitch:null,loc:null};save();render();toast('Count cleared');break;
+    case 'next':S.slot=(S.slot+1)%S.game.lineupSize;S.abId++;sel={pitch:null,loc:null};save();render();break;
+    case 'prev':S.slot=(S.slot-1+S.game.lineupSize)%S.game.lineupSize;S.abId++;sel={pitch:null,loc:null};save();render();break;
+    case 'edit-batter':batterSheet(S.slot);break;
+    case 'hand':tempHand=arg;Array.prototype.forEach.call($('#bh').children,function(b){b.setAttribute('aria-pressed',String(b.dataset.arg===arg));});break;
+    case 'save-batter':S.lineup[+arg]={label:($('#bl').value||'').trim(),hand:tempHand};save();closeSheet();render();break;
+    case 'close':closeSheet();break;
+    case 'cyc':var L=S.lineup[+arg];L.hand=L.hand==='R'?'L':(L.hand==='L'?'S':'R');save();render();break;
+    case 'add-pitcher':if(S.pitchers.length<6){S.pitchers.push('Pitcher '+(S.pitchers.length+1));save();render();}break;
+    case 'rm-pitcher':if(S.pitchers.length>1){S.pitchers.splice(+arg,1);if(S.pitcherIdx>=S.pitchers.length)S.pitcherIdx=0;save();render();}break;
+    case 'sf':
+      var nm=[];S.pitches.forEach(function(p){if(nm.indexOf(p.pitcher)<0)nm.push(p.pitcher);});
+      statFilter=arg==='all'?'all':nm[+arg];render();break;
+    case 'export':exportSrc=null;exportSheet();break;
+    case 'export-game':exportSrc=ARCH.filter(function(x){return String(x.id)===arg;})[0]||null;exportSheet();break;
+    case 'open-game':openGame(arg);break;
+    case 'sync-now':reconcile().then(function(){toast(syncState==='on'?'Synced':'Could not sync right now');});break;
+    case 'remote-use':if(pendingRemote){applyRemote(pendingRemote);pendingRemote=null;}closeSheet();toast('Loaded the game from your other device');break;
+    case 'remote-keep':pendingRemote=null;S.updatedAt=Date.now();try{localStorage.setItem(KEY,JSON.stringify(S));}catch(e){}pushCurrent();closeSheet();break;
+    case 'del-game':openSheet('<h2 class="sh">Delete this saved game?</h2><p>It is removed from this device. Export it first if you want a copy.</p><div class="row"><button type="button" class="btn ghost" data-action="close">Keep it</button><button type="button" class="btn warn" data-action="del-game-go" data-arg="'+arg+'">Delete</button></div>');break;
+    case 'del-game-go':ARCH=ARCH.filter(function(x){return String(x.id)!==arg;});saveArch();remoteDelete(arg);closeSheet();render();break;
+    case 'xmode':exportMode=arg;setXT();break;
+    case 'copy':copyOut();break;
+    case 'share':try{navigator.share({title:'Jr Diamonds pitch log',text:$('#xt').value}).catch(function(){});}catch(e){}break;
+    case 'newgame':newGameSheet();break;
+    case 'newgame-go':
+      archiveCurrent();var d=defaults();d.pitchers=S.pitchers.slice();d.game.lineupSize=S.game.lineupSize;d.game.trackLoc=S.game.trackLoc;d.game.wake=S.game.wake;d.tab='call';
+      S=d;sel={pitch:null,loc:null};statFilter='all';save();closeSheet();render();window.scrollTo(0,0);toast('Game saved. New game ready.');break;
+  }
+}
+document.addEventListener('click',function(e){
+  var el=e.target.closest('[data-action]');
+  if(!el)return;
+  act(el.dataset.action,el.dataset.arg,el);
+});
+$('#view').addEventListener('input',function(e){
+  var b=e.target.dataset&&e.target.dataset.bind;if(!b)return;
+  var v=e.target.value;
+  if(b==='opp')S.game.opp=v;
+  else if(b==='date')S.game.date=v;
+  else if(b.indexOf('pitcher:')===0)S.pitchers[+b.split(':')[1]]=v;
+  else if(b.indexOf('lineup:')===0)S.lineup[+b.split(':')[1]].label=v;
+  save();renderHead();
+});
+$('#view').addEventListener('change',function(e){
+  var b=e.target.dataset&&e.target.dataset.bind;if(!b)return;
+  if(b==='size'){S.game.lineupSize=+e.target.value;if(S.slot>=S.game.lineupSize)S.slot=0;save();render();}
+  else if(b==='trackLoc'){S.game.trackLoc=e.target.checked;save();}
+  else if(b==='wake'){S.game.wake=e.target.checked;save();wake();}
+});
+
+render();
+wake();
+initSync();
+})();
+</script>
+</body>
+</html>
