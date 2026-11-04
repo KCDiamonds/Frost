@@ -196,6 +196,29 @@ main{flex:1;display:flex;align-items:center}
 .base.second{left:50%;top:18%}
 .base.third{left:17%;top:50%}
 
+/* Meet the team */
+.team{
+  max-width:1160px;width:calc(100% - 2 * clamp(20px,4vw,40px));margin:0 auto clamp(32px,5vw,56px);
+  display:flex;align-items:center;justify-content:space-between;gap:24px 40px;flex-wrap:wrap;
+  padding:clamp(24px,3.5vw,36px) clamp(22px,4vw,44px);
+  border:1.5px solid var(--line);border-radius:18px;
+  background:linear-gradient(120deg,rgba(79,216,238,.16) 0%,rgba(79,216,238,.04) 55%,transparent 100%);
+  position:relative;overflow:hidden;
+}
+.team::before{content:"";position:absolute;left:0;top:18px;bottom:18px;width:4px;background:var(--gold);border-radius:0 4px 4px 0}
+.team h2{font-family:var(--display);font-weight:500;font-size:clamp(1.6rem,2.6vw,2.1rem);line-height:1.15;margin:0 0 6px}
+.team p{margin:0;max-width:34em;color:var(--ink-soft)}
+.cta{
+  display:inline-flex;align-items:center;gap:12px;min-height:48px;padding:12px 22px;border-radius:999px;
+  background:var(--navy);color:#fff;text-decoration:none;font-weight:600;font-size:1rem;white-space:nowrap;
+  transition:background .2s ease,color .2s ease;
+}
+.cta svg{width:18px;height:18px;transition:transform .2s ease}
+.cta:hover svg,.cta:focus-visible svg{transform:translateX(4px)}
+:root[data-theme="dark"] .cta{background:var(--cyan);color:var(--navy)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .cta{background:var(--cyan);color:var(--navy)}}
+@media (max-width:600px){.cta{width:100%;justify-content:center}}
+
 /* Footer */
 .foot{
   max-width:1160px;width:100%;margin:0 auto;
@@ -331,6 +354,17 @@ main{flex:1;display:flex;align-items:center}
     </nav>
   </div>
 </main>
+
+<section class="team" aria-labelledby="team-h">
+  <div>
+    <h2 id="team-h">Meet the team</h2>
+    <p>Get to know the Jr Diamonds players. Each profile is built for college coaches and recruiters.</p>
+  </div>
+  <a class="cta" href="https://kcdiamonds.github.io/Frost/profiles.html" target="_blank" rel="noopener">
+    View player profiles
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+  </a>
+</section>
 
 <footer class="foot">
   <span>Jr Diamonds, part of KC Diamonds</span>
